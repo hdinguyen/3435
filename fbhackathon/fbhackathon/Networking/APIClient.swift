@@ -11,6 +11,7 @@ import Alamofire
 
 
 typealias api_response = (data:AnyObject?, error:NSError?) -> Void
+let API_URL = "http://localhost/"
 
 class ApiManager {
     static let sharedInstance: Manager = {
@@ -31,5 +32,17 @@ class APIClient: NSObject {
         configuration.timeoutIntervalForRequest = 30 // seconds
         configuration.timeoutIntervalForResource = 30
         self.alamoFireManager = Alamofire.Manager(configuration: configuration)
+    }
+    
+    func post(urlPath: String, postData:[String:AnyObject], complete:api_response) {
+        ApiManager.sharedInstance.request(.POST, API_URL + urlPath, parameters: postData, encoding: .JSON).responseJSON { (response:Response<AnyObject, NSError>) in
+            complete(data: response.result.value, error: response.result.error)
+        }
+    }
+    
+    func get(urlPath: String, complete:api_response) {
+        ApiManager.sharedInstance.request(.GET, API_URL + urlPath).responseJSON { (response:Response<AnyObject, NSError>) in
+            complete(data: response.result.value, error: response.result.error)
+        }
     }
 }
