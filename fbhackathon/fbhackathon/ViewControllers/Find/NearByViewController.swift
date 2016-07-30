@@ -32,6 +32,10 @@ class NearByViewController: BaseViewController, MKMapViewDelegate,  CLLocationMa
         map.showsUserLocation = true
         
         self.view = map
+        
+        searchBar.inputAccessoryView = Common.shareInstance.createToolBar({ (data) in
+            self.searchBar.resignFirstResponder()
+        })
         self.navigationItem.titleView = searchBar
         
         let find:UIBarButtonItem = UIBarButtonItem(title: "List", style: .Done, target: self, action: #selector(NearByViewController.findPressed))
@@ -82,10 +86,6 @@ class NearByViewController: BaseViewController, MKMapViewDelegate,  CLLocationMa
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, currentDistance, currentDistance)
         map.setRegion(region, animated: true)
         manager.stopUpdatingLocation()
-    }
-    
-    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        searchBar.resignFirstResponder()
     }
     
     func findPressed() {

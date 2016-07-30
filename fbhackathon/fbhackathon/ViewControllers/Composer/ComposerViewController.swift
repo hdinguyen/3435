@@ -38,7 +38,9 @@ class ComposerViewController: BaseViewController, UITextViewDelegate {
         contentComposer.layer.borderColor = UIColor.lightGrayColor().CGColor
         contentComposer.layer.borderWidth = 1
         contentComposer.layer.cornerRadius = 3
-        contentComposer.inputAccessoryView = self.createToolBar()
+        contentComposer.inputAccessoryView = Common.shareInstance.createToolBar({ (data) in
+            self.contentComposer.resignFirstResponder()
+        })
         
         
         scrollView.addSubview(contentComposer)
@@ -54,15 +56,6 @@ class ComposerViewController: BaseViewController, UITextViewDelegate {
     
     func donePressed () {
         self.navigationController?.popViewControllerAnimated(true)
-    }
-    
-    func createToolBar() -> UIToolbar {
-        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 30))
-        toolbar.barStyle = .BlackTranslucent
-        let done = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(ComposerViewController.dismiss))
-        toolbar.items = [done]
-        toolbar.sizeToFit()
-        return toolbar
     }
     
     func dismiss()
