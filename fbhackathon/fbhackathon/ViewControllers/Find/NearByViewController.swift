@@ -46,22 +46,25 @@ class NearByViewController: BaseViewController, MKMapViewDelegate,  CLLocationMa
     func distance() {
         let option = UIAlertController(title: "Distance", message: nil, preferredStyle: .ActionSheet)
         
-        let action5k = UIAlertAction(title: "1 km", style: .Default) { (action) in
+        let action1k = UIAlertAction(title: "1 km", style: .Default) { (action) in
             self.currentDistance = 1000
+            self.locationManager!.startUpdatingLocation()
         }
         
-        let action10k = UIAlertAction(title: "5 km", style: .Default) { (action) in
+        let action5k = UIAlertAction(title: "5 km", style: .Default) { (action) in
             self.currentDistance = 5000
+            self.locationManager!.startUpdatingLocation()
         }
         
-        let action50k = UIAlertAction(title: "10 km", style: .Default) { (action) in
+        let action10k = UIAlertAction(title: "10 km", style: .Default) { (action) in
             self.currentDistance = 10000
+            self.locationManager!.startUpdatingLocation()
         }
         
-    }
-    
-    func zoomMap() {
-        
+        option.addAction(action1k)
+        option.addAction(action5k)
+        option.addAction(action10k)
+        self.presentViewController(option, animated: true, completion: nil)
     }
     
     
@@ -76,7 +79,7 @@ class NearByViewController: BaseViewController, MKMapViewDelegate,  CLLocationMa
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0]
-        let region = MKCoordinateRegionMakeWithDistance(location.coordinate, 5000, 5000)
+        let region = MKCoordinateRegionMakeWithDistance(location.coordinate, currentDistance, currentDistance)
         map.setRegion(region, animated: true)
         manager.stopUpdatingLocation()
     }

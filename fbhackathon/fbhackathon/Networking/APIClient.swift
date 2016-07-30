@@ -34,13 +34,13 @@ class APIClient: NSObject {
         self.alamoFireManager = Alamofire.Manager(configuration: configuration)
     }
     
-    func post(urlPath: String, postData:[String:AnyObject], complete:api_response) {
+    class func postRequest(urlPath: String, postData:[String:AnyObject], complete:api_response) {
         ApiManager.sharedInstance.request(.POST, API_URL + urlPath, parameters: postData, encoding: .JSON).responseJSON { (response:Response<AnyObject, NSError>) in
             complete(data: response.result.value, error: response.result.error)
         }
     }
     
-    func get(urlPath: String, complete:api_response) {
+    class func getRequest(urlPath: String, complete:api_response) {
         ApiManager.sharedInstance.request(.GET, API_URL + urlPath).responseJSON { (response:Response<AnyObject, NSError>) in
             complete(data: response.result.value, error: response.result.error)
         }
