@@ -26,7 +26,7 @@ class MainTabBarViewController: UITabBarController {
             req.startWithCompletionHandler({ (connection, result, error : NSError!) -> Void in
                 if(error == nil)
                 {
-                    DataManager.shareInstance.userId = result["id"] as! String
+                    DataManager.shareInstance.fbUserId = result["id"] as! String
                 }
                 else
                 {

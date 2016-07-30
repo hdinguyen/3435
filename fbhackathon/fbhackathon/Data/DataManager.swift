@@ -13,13 +13,22 @@ class DataManager: NSObject {
     let userDefault = NSUserDefaults.standardUserDefaults()
     static let shareInstance = DataManager()
     var userId:String = ""
+    var fbUserId:String = ""
     
     func wrtie(key:String, value:String) {
         userDefault.setObject(value, forKey: key)
         userDefault.synchronize()
     }
     
+    func clean(key:String) {
+        userDefault.removeObjectForKey(key)
+        userDefault.synchronize()
+    }
+    
     func read(key:String) -> String {
+        if userDefault.objectForKey(key) == nil {
+            return ""
+        }
         return userDefault.objectForKey(key) as! String
     }
 }

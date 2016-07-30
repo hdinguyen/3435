@@ -75,23 +75,22 @@ router.post('/oauth/facebook', function (req, res){
         return;
       }
 
-      models.users.findOrCreate({
-        where: {
-          id: fb_res.id
-        }
-      }).spread(function(user, created)
+      models.users.findOne(
+        {where: {identity:fb_res.id}}
+      ).then(function(user)
       {
-          user.fullname = fb_res.fullname? fb_res.fullname: null;
-          user.email = email ? email: user.email;
-          user.dayofbirth = fb_res.birthday? Date.parse(fb_res.birthday): null;
-          user.status = 'active';
-          user.access_token = token;
-          user.photo_url = photo_url ? photo_url: user.photo_url;
-          // Update user
-          console.log(user);
-
-          user.save().then(function (){
-              res.end(JSON.stringify({"status":"success"}));
+        if (!user){
+          var new_user = models.users.build({identity: fb_res.id,
+            email : email ? email: null,
+            fullname : fb_res.first_name? fb_res.first_name + ' ' + fb_res.last_name: null,
+            token: token,
+            photo_url : photo_url ? photo_url: null,
+            dayofbirth : fb_res.birthday? Date.parse(fb_res.birthday): null,
+            status : 'active',
+            source: 'FACEBOOK',
+          });
+          new_user.save().then(function (user){
+            res.end(JSON.stringify({"status":"success", data: user}));
           },function (err){
             res.end(JSON.stringify({"status":"error"}));
             console.log(err);
@@ -100,9 +99,31 @@ router.post('/oauth/facebook', function (req, res){
             res.end(JSON.stringify({"status":"error"}));
             console.log(error);
           });
+        } else {
+          user.update({
+            email : email ? email: user.email,
+            fullname : fb_res.fullname? fb_res.fullname: null,
+            token: token,
+            photo_url : photo_url ? photo_url: user.photo_url,
+            dayofbirth : fb_res.birthday? Date.parse(fb_res.birthday): null,
+            status : 'active'}
+          ).then(function (user){
+        res.end(JSON.stringify({"status":"success", "data": user} ));
+      },function (err){
+        res.end(JSON.stringify({"status":"error"}));
+        console.log(err);
+      }).catch(function (error)
+      {
+        res.end(JSON.stringify({"status":"error"}));
+        console.log(error);
+      });
 
-          // Return status
-          
+        }
+          // Update user
+
+      }, function (error){
+        res.end(JSON.stringify({"status":"error"}));
+        console.log(error);
       });
     });
 });
