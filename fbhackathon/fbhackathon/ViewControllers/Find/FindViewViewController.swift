@@ -10,7 +10,7 @@ import UIKit
 
 class FindViewViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
-    let dataSource:[String:[String]] = ["Culture":["Japanese tea", "Asia art", "Canavan", "UK Tea", "Sakura", "July 4", "Easter"], "Sport":["Golf", "Cycling", "Football", "Tennis", "Badminton", "Horse Rate", "Zumba"], "Art":["Photography", "Typo", "Re-touch", "Graffiti", "Cosplay"], "Music":["Hiphop", "Meditation", "Jazz", "Guita", "Hamonica", "Sing"], "Hobby":["Helicopter", "Origami", "Readding", "Candle Making"], "Cooking":["Cake", "Beepsteak", "French", "India", "Korea", "Sushi", "Fruice", "Vegan", "Seafood"], "Tip":["Cleaning", "Indoor", "Washing", "Electric"], "Programming":["Python", "PhP", "Computer science", "Hacking"], "Pet":["Dog", "Trainning", "Cat", "Bird", "Fish", "Turtle", "Hamster"], "Science":["Physic", "Math", "Chemistry", "Physiology"], "Business":["SME", "Startup", "Affiliate", "Authorise"], "Religion":["Buddhist", "Christian", "Muslim", "Maisen", "Other"], "Romance":["Dating", "Kissing", "Dinner", "Chit chat"], "Handmake":["Gift", "Furniture"]]
+    let dataSource:[String:[String]] = ["Culture":["I need to learn basic about Japanese tea meeting", "I can help you write canchi art", "Just join the canavan festival. If you love to know more", "I want to learn the UK teapot culture"], "Sport":["I need to learn basic Golf", "I need someone training Cycling", "I'm expert inn Yoga, I can help if you want to train", "I need to learn Zumba basic step"], "Art":["Photography", "Typo", "Re-touch", "Graffiti", "Cosplay"], "Music":["I want to know how to play \"I'm yours\" on guitar", "I have a few think love to share about Meditation", "I love to learn play Hamonica", "I can improve your singing"], "Hobby":["I can guide how to bought a reasonable Helicopter", "(Origami)I want to know how to make a dog with paper"], "Cooking":["I know how to make the Tiramisu cake", "I love to know how to cook Beepsteak", "Can you teach me how to cook a Korea dishes", "I know the tip to make good Sushi", "Fruice", "Vegan", "How to make good Seafood"]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,6 +92,13 @@ class FindViewViewController: BaseViewController, UITableViewDelegate, UITableVi
         }
         cell?.textLabel?.text = self.dataSource[key]![indexPath.row]
         cell?.detailTextLabel?.text = Common.shareInstance.userImage().name
+        cell?.backgroundColor = UIColor.whiteColor()
+        if indexPath.section == 0 || indexPath.section == 3 {
+            if indexPath.row == 1 || indexPath.row == 2 || indexPath.row == 5 {
+                cell?.backgroundColor = UIColor.colorWithHexString("d7ffcb")
+            }
+        }
+        
         return cell!
     }
     
@@ -102,16 +109,5 @@ class FindViewViewController: BaseViewController, UITableViewDelegate, UITableVi
         let detail = DetailViewController(name: self.dataSource[key]![indexPath.row])
         self.navigationController?.pushViewController(detail, animated: true)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
