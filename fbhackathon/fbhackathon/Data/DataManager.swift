@@ -12,7 +12,7 @@ class DataManager: NSObject {
     
     let userDefault = NSUserDefaults.standardUserDefaults()
     static let shareInstance = DataManager()
-
+    var userId:String = ""
     
     func wrtie(key:String, value:String) {
         userDefault.setObject(value, forKey: key)

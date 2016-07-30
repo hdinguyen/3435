@@ -52,7 +52,15 @@ class FindViewViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 30
+        return 50
+    }
+    
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.size.width, height: 50))
+        let icon = UIImageView(frame: CGRect(x: 10, y: 2, width: tableView.frame.size.height - 4, height: tableView.frame.size.height - 4))
+        view.addSubview(icon)
+        
+        return view
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -71,7 +79,7 @@ class FindViewViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let detail = DetailViewController()
+        let detail = DetailViewController(name: "golf")
         self.navigationController?.pushViewController(detail, animated: true)
     }
     

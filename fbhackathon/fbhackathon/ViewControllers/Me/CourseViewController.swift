@@ -14,9 +14,28 @@ enum COURSE_SCREEN {
     case COURSE
 }
 
+class program {
+    var program_id:String = ""
+    var program_detail:String = ""
+    var program_length:String = ""
+    var program_price:String = ""
+    var is_offline:Bool = true
+    var location:String = "0.0 - 0.0"
+    
+    init(data:[String:AnyObject]) {
+        self.program_id = (data["id"] as! NSNumber).stringValue
+        self.program_detail = data["details"] as! String
+        self.program_length = (data["length"] as! NSNumber).stringValue
+        self.program_price = (data["price"] as! NSNumber).stringValue
+        self.is_offline = (data["is_offline"] as! NSNumber).boolValue
+        self.location = data["location"] as! String
+    }
+}
+
 class CourseViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     var screenType:COURSE_SCREEN = .PROGRAM
+    var dataSource = [program]()
 
     init (screen:COURSE_SCREEN) {
         super.init(nibName: nil, bundle: nil)
@@ -34,6 +53,28 @@ class CourseViewController: BaseViewController, UITableViewDelegate, UITableView
         tableView.delegate = self
         tableView.dataSource = self
         self.view.addSubview(tableView)
+        
+        switch screenType {
+        case .COURSE:
+            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/courses?type=mentor") { (data, error) in
+                tableView.reloadData()
+            }
+        case .PROGRAM:
+//            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/programs") { (data, error) in
+            APIClient.getRequest("users/1/programs") { (data, error) in
+                
+                for i:[String:AnyObject] in data!["data"] as! [[String:AnyObject]] {
+                    self.dataSource.append(program(data: i))
+                }
+                tableView.reloadData()
+            }
+            
+        case .OFFER:
+            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/offer") { (data, error) in
+                
+                tableView.reloadData()
+            }
+        }
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -41,16 +82,22 @@ class CourseViewController: BaseViewController, UITableViewDelegate, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return self.dataSource.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("cell")
         if cell == nil {
-            cell = UITableViewCell(style: .Subtitle, reuseIdentifier: "cell")
+            cell = UITableViewCell(style: .Value1, reuseIdentifier: "cell")
         }
-        cell?.textLabel?.text = "Course name"
-        cell?.textLabel?.text = "more detail"
+        
+        cell?.textLabel?.text = dataSource[indexPath.row].program_detail
+        cell?.detailTextLabel?.text = "$\(dataSource[indexPath.row].program_price)"
+        if dataSource[indexPath.row].is_offline == true {
+            cell?.imageView?.image = UIImage(named: "offline")
+        } else {
+            cell?.imageView?.image = UIImage(named: "online")
+        }
         return cell!
     }
     
