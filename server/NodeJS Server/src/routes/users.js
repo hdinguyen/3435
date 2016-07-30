@@ -50,8 +50,10 @@ router.post('/:user_id',function(req, res, next){
 // Authentication and create/update token for user
 router.post('/oauth/facebook', function (req, res){
 	var token = req.body.token;
+  var email = req.body.email;
+  var photo_url = req.body.photo_url;
 	var fb = FB.extend();
-  fb.setAccessToken(body.access_token);
+  fb.setAccessToken(token);
   fb.api('/me', 'get',
     {
       fields: ['id', 'name', 'first_name', 'last_name', 'email', 'location', 'locale', 'age_range', 'gender', 'birthday']
@@ -59,6 +61,7 @@ router.post('/oauth/facebook', function (req, res){
     function (fb_res){
       if (!fb_res || fb_res.error){
         res.end(JSON.stringify({'status':'Error'}));
+        console.log(fb_res? fb_res.error: 'error');
         return;
       }
 
@@ -68,21 +71,20 @@ router.post('/oauth/facebook', function (req, res){
         }
       }).spread(function(user, created)
       {
-          user.fullname = fb_res.fullname? fb_res.fullname: null,
-          user.email = fb_res.email ? fb_res.email: null,
-          user.dayofbirth = fb_res.birthday? Date.parse(fb_res.birthday): null,
-          user.status = 'active',
-          user.access_token = token
+          user.fullname = fb_res.fullname? fb_res.fullname: null;
+          user.email = email ? email: user.email;
+          user.dayofbirth = fb_res.birthday? Date.parse(fb_res.birthday): null;
+          user.status = 'active';
+          user.access_token = token;
+          user.photo_url = photo_url ? photo_url: user.photo_url;
           // Update user
           console.log(user);
 
-          models.users.update({
-              id: fb_res.id,
-              secret: token,
-              source: 'FACEBOOK',
-              email: fb_user.email ? fb_user.email: null
-            }).then(function (){
+          user.save().then(function (){
               res.end(JSON.stringify({"status":"success"}));
+          },function (err){
+            res.end(JSON.stringify({"status":"error"}));
+            console.log(err);
           }).catch(function (error)
           {
             res.end(JSON.stringify({"status":"error"}));
