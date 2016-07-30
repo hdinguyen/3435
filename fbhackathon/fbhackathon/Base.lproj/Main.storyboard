@@ -24,10 +24,10 @@
             </objects>
             <point key="canvasLocation" x="1973" y="-357"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Main Tab Bar View Controller-->
         <scene sceneID="lH1-Tb-mzH">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="TeE-c6-EL8" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="TeE-c6-EL8" customClass="MainTabBarViewController" customModule="fbhackathon" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="dQy-dZ-aEz">
                         <autoresizingMask key="autoresizingMask"/>
