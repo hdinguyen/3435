@@ -2,9 +2,8 @@
   "database": {
     "development": {
       "username": "huyth",
-      "password": "123",
       "database": "fbhackathon",
-      "host": "10.247.224.186:3306",
+      "host": "127.0.0.1",
       "dialect": "mysql"
     }
   },

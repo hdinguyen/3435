@@ -3,7 +3,6 @@
 
 module.exports = function (sequelize, DataTypes) {
 	var User_skills = sequelize.define("user_skills", {
-        id: DataTypes.INTEGER,
 		user_id: DataTypes.STRING,
 		details: DataTypes.STRING,
 		tag1: DataTypes.STRING,

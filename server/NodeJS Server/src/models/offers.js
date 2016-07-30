@@ -3,7 +3,6 @@
 
 module.exports = function (sequelize, DataTypes) {
 	var Offers = sequelize.define("offers", {
-        id: DataTypes.INTEGER,
 		mentor: DataTypes.INTEGER,
 		mentee: DataTypes.INTEGER,
 		progam_id: DataTypes.INTEGER,
