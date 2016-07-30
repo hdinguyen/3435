@@ -3,7 +3,7 @@
 
 module.exports = function (sequelize, DataTypes) {
 	var Programs = sequelize.define("programs", {
-		skill_id: DataTypes.INTEGER,
+		user_skill_id: DataTypes.INTEGER,
 		details: DataTypes.STRING,
 		length: DataTypes.INTEGER,
         price: DataTypes.DOUBLE,

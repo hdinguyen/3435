@@ -215,15 +215,15 @@ router.get('/:user_id/courses', function(req, res, next) {
 router.get('/:user_id/programs', function(req, res, next) {
   var user_id = req.params.user_id;
   var type = req.query.type;
-  var where_clause = {};
+  var where_clause = {user_id: user_id};
   if (type) {
     where_clause.type = type;
   }
   models.programs.findAll({
-    where: where_clause,
+    where: {},
     include: [
       {
-        model: models.user_skills, as: 'user_skill', where: {user_id: user_id}
+        model: models.user_skills, as: 'user_skill', where: where_clause, required: true
       }
     ]
   }).then(function (programs){
@@ -232,10 +232,39 @@ router.get('/:user_id/programs', function(req, res, next) {
   );
 
   function parse_program(program){
+    var dataValues = program.dataValues;
     ["user_id","details", "tag1","tag2", "tag3", "tag4", "tag5","level", "type"].forEach(function(key){
-      program[key] = program.user_skill[key];
+      dataValues[key] = program.user_skill[key];
     });
-    return program;
+    return dataValues;
+  }
+});
+
+
+router.get('/:user_id/offers', function(req, res, next) {
+  var user_id = req.params.user_id;
+  var where_clause = {user_id: user_id};
+  models.programs.findAll({
+    where: {},
+    include: [
+      {
+        model: models.user_skills, as: 'user_skill', where: where_clause, required: true
+      },
+      {
+        model: models.offers, as: 'offers', require: true
+      }
+    ]
+  }).then(function (programs){
+      res.end(JSON.stringify({status: 'success', data: programs.map(parse_program)}));
+    }
+  );
+
+  function parse_program(program){
+    var dataValues = program.dataValues;
+    ["user_id","details", "tag1","tag2", "tag3", "tag4", "tag5","level", "type"].forEach(function(key){
+      dataValues[key] = program.user_skill[key];
+    });
+    return dataValues;
   }
 });
 
