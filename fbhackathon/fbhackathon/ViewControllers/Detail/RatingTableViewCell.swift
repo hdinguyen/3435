@@ -25,7 +25,8 @@ class RatingTableViewCell: UITableViewCell {
     
     func load(data:Float, size:CGSize) {
         if ratingView == nil {
-            ratingView = FloatRatingView(frame: CGRect(origin: CGPoint(x: 0, y: 0), size: size))
+            ratingView = FloatRatingView(frame: CGRect(x: 50, y: 5, width: size.width - 100, height:size.height - 10))
+            
             ratingView!.emptyImage = UIImage(named: "StarEmpty")
             ratingView!.fullImage = UIImage(named: "StarFull")
         

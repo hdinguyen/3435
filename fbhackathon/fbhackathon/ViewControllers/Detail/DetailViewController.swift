@@ -15,6 +15,11 @@ class DetailViewController: BaseViewController, UITableViewDelegate, UITableView
         let tableView = UITableView(frame: CGRectZero, style: .Plain)
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.registerClass(AuthorTableViewCell.self, forCellReuseIdentifier: "author")
+        tableView.registerClass(DescriptionTableViewCell.self, forCellReuseIdentifier: "decription")
+        tableView.registerClass(RatingTableViewCell.self, forCellReuseIdentifier: "rating")
+        tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "comment")
+        tableView.separatorStyle = .None
         self.view = tableView
         // Do any additional setup after loading the view.
     }
@@ -30,6 +35,19 @@ class DetailViewController: BaseViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 10
+    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            return 230
+        }
+        if indexPath.row == 1 {
+            return 230
+        }
+        if indexPath.row == 2 {
+            return 40
+        }
+        return 50
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
