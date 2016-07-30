@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 var FB = require('fb');
 var async = require('async');
-
+var categories_map = {};
 var fb_credentials = {
 	client_id: '322571938081191',
 	client_secret: '76f01857cf3e8061980d765fd28eea0c',
@@ -12,8 +12,18 @@ var fb_credentials = {
 FB.options({appId: fb_credentials.client_id, appSecret: fb_credentials.client_secret, version: fb_credentials.version});
 
 
+models.categories.findAll({
+  attributes : ['id', 'title']
+}).then(function (data){
+  data.forEach(function(element) {
+    categories_map["k" + element.id] = element.title;
+  }, this);
+});
+
+
+
 // START USERS
-/* GET users listing. */
+/* GET user. */
 router.get('/:user_id', function(req, res, next) {
   var user_id = req.params.user_id;
   models.users.findById(user_id).then(function(user){
@@ -50,8 +60,10 @@ router.post('/:user_id',function(req, res, next){
 // Authentication and create/update token for user
 router.post('/oauth/facebook', function (req, res){
 	var token = req.body.token;
+  var email = req.body.email;
+  var photo_url = req.body.photo_url;
 	var fb = FB.extend();
-  fb.setAccessToken(body.access_token);
+  fb.setAccessToken(token);
   fb.api('/me', 'get',
     {
       fields: ['id', 'name', 'first_name', 'last_name', 'email', 'location', 'locale', 'age_range', 'gender', 'birthday']
@@ -59,6 +71,7 @@ router.post('/oauth/facebook', function (req, res){
     function (fb_res){
       if (!fb_res || fb_res.error){
         res.end(JSON.stringify({'status':'Error'}));
+        console.log(fb_res? fb_res.error: 'error');
         return;
       }
 
@@ -68,21 +81,20 @@ router.post('/oauth/facebook', function (req, res){
         }
       }).spread(function(user, created)
       {
-          user.fullname = fb_res.fullname? fb_res.fullname: null,
-          user.email = fb_res.email ? fb_res.email: null,
-          user.dayofbirth = fb_res.birthday? Date.parse(fb_res.birthday): null,
-          user.status = 'active',
-          user.access_token = token
+          user.fullname = fb_res.fullname? fb_res.fullname: null;
+          user.email = email ? email: user.email;
+          user.dayofbirth = fb_res.birthday? Date.parse(fb_res.birthday): null;
+          user.status = 'active';
+          user.access_token = token;
+          user.photo_url = photo_url ? photo_url: user.photo_url;
           // Update user
           console.log(user);
 
-          models.users.update({
-              id: fb_res.id,
-              secret: token,
-              source: 'FACEBOOK',
-              email: fb_user.email ? fb_user.email: null
-            }).then(function (){
+          user.save().then(function (){
               res.end(JSON.stringify({"status":"success"}));
+          },function (err){
+            res.end(JSON.stringify({"status":"error"}));
+            console.log(err);
           }).catch(function (error)
           {
             res.end(JSON.stringify({"status":"error"}));
@@ -106,7 +118,16 @@ router.get('/:user_id/skills', function(req, res, next) {
     where_clause.type = type;
   }
   models.user_skills.findAll({where:where_clause}).then(function(user_skills){
-    res.end(JSON.stringify({status: "success", data: user_skills}));
+     var list_data = [];
+     user_skills.forEach(function(element){
+          element.tag1 = categories_map["k"+element.tag1];
+          element.tag2 = categories_map["k"+element.tag2];
+          element.tag3 = categories_map["k"+element.tag3];
+          element.tag4 = categories_map["k"+element.tag4];
+          element.tag5 = categories_map["k"+element.tag5];
+          list_data.push(element);
+      });
+    res.end(JSON.stringify({status: "success", data: list_data}));
   }).catch(function (error)
   {
     res.end(JSON.stringify({"status":"error"}));
@@ -140,9 +161,9 @@ router.post('/:user_id/skills', function(req, res, next) {
       next(error);
     });
   },function(error, results){
-    if (error){
-      res.end(JSON.stringify({status: 'error'}));
-    }
+      if (error){
+        res.end(JSON.stringify({status: 'error'}));
+      }
       else {
         res.end(JSON.stringify({status: 'success', data: results}))
       }
@@ -213,15 +234,15 @@ router.get('/:user_id/courses', function(req, res, next) {
 router.get('/:user_id/programs', function(req, res, next) {
   var user_id = req.params.user_id;
   var type = req.query.type;
-  var where_clause = {};
+  var where_clause = {user_id: user_id};
   if (type) {
     where_clause.type = type;
   }
   models.programs.findAll({
-    where: where_clause,
+    where: {},
     include: [
       {
-        model: models.user_skills, as: 'user_skill', where: {user_id: user_id}
+        model: models.user_skills, as: 'user_skill', where: where_clause, required: true
       }
     ]
   }).then(function (programs){
@@ -230,10 +251,48 @@ router.get('/:user_id/programs', function(req, res, next) {
   );
 
   function parse_program(program){
+    var dataValues = program.dataValues;
     ["user_id","details", "tag1","tag2", "tag3", "tag4", "tag5","level", "type"].forEach(function(key){
-      program[key] = program.user_skill[key];
+      if(key.indexOf('tag') >= 0)
+      { 
+        if(categories_map["k"+program.user_skill[key]])
+          dataValues.user_skill[key] = categories_map["k"+program.user_skill[key]];
+      }
     });
-    return program;
+    return dataValues;
+  }
+});
+
+
+router.get('/:user_id/offers', function(req, res, next) {
+  var user_id = req.params.user_id;
+  var where_clause = {user_id: user_id};
+  models.programs.findAll({
+    where: {},
+    include: [
+      {
+        model: models.user_skills, as: 'user_skill', where: where_clause, required: true
+      },
+      {
+        model: models.offers, as: 'offers', require: true
+      }
+    ]
+  }).then(function (programs){
+      res.end(JSON.stringify({status: 'success', data: programs.map(parse_program)}));
+    }
+  );
+
+  function parse_program(program){
+    var dataValues = program.dataValues;
+    ["user_id","details", "tag1","tag2", "tag3", "tag4", "tag5","level", "type"].forEach(function(key){
+      if(key.indexOf('tag') >= 0)
+      { 
+        if(categories_map["k"+program.user_skill[key]])
+          dataValues.user_skill[key] = categories_map["k"+program.user_skill[key]];
+        //console.log(categories_map["k"+program.user_skill[key]]);
+      }
+    });
+    return dataValues;
   }
 });
 
