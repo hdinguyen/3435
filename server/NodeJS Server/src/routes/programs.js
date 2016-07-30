@@ -2,52 +2,52 @@ var models  = require('../models');
 var express = require('express');
 var router = express.Router();
 
-/* Create/ update program */
+/* Create program */
+router.post('/', function(req, res, next) {
+    var data = req.body.data;
+    models.programs.create({
+        user_skill_id: data.user_skill_id,
+        title: data.title,
+        details: data.details,
+        length: data.length,
+        price: data.price,
+        is_offline: data.is_offline,
+        location: data.location
+    }).then(function(program)
+    {
+        res.end(JSON.stringify({"status":"success"}));
+    }).catch(function (error)
+    {
+        res.end(JSON.stringify({"status":"error"}));
+        console.log(error);
+    });
+});
+
+
+/* Update program */
 router.post('/:program_id/', function(req, res, next) {
   var program_id = req.params.program_id;
   var data = req.body.data;
-  models.programs.findOrCreate({where: {id: program_id},
-   defaults: {
-       user_skill_id: data.user_skill_id,
-       title: data.title,
-       details: data.details,
-       length: data.length,
-       price: data.price,
-       is_offline: data.is_offline,
-       location: data.location
-    }}).spread(function(program, created){
-    if(created)
+    models.programs.update({
+        user_skill_id: data.user_skill_id,
+        title: data.title,
+        details: data.details,
+        length: data.length,
+        price: data.price,
+        is_offline: data.is_offline,
+        location: data.location
+    },
     {
-        res.end(JSON.stringify({"status":"success",program}));
-    }
-    else
-    {    
-        models.programs.update({
-            user_skill_id: data.user_skill_id,
-            title: data.title,
-            details: data.details,
-            length: data.length,
-            price: data.price,
-            is_offline: data.is_offline,
-            location: data.location
-        },
-        {
-            where: {
-                id: program_id
-        }}).then(function(program)
-        {
-            res.end(JSON.stringify({"status":"success"}));
-        }).catch(function (error)
-        {
-            res.end(JSON.stringify({"status":"error"}));
-            console.log(error);
-        });
-    }
-  }).catch(function (error)
-  {
-    res.end(JSON.stringify({"status":"error"}));
-    console.log(error);
-  });
+        where: {
+            id: program_id
+    }}).then(function(program)
+    {
+        res.end(JSON.stringify({"status":"success"}));
+    }).catch(function (error)
+    {
+        res.end(JSON.stringify({"status":"error"}));
+        console.log(error);
+    });
 });
 
 // Create offer
