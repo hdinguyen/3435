@@ -2,7 +2,6 @@ var models  = require('../models');
 var express = require('express');
 var router = express.Router();
 var FB = require('fb');
-var default_fb_redirect_uri = constants.config["facebook_redirect_uri"][constants.env];
 
 var fb_credentials = {
 	client_id: '322571938081191',
@@ -14,26 +13,33 @@ FB.options({appId: fb_credentials.client_id, appSecret: fb_credentials.client_se
 
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
-
-// Get skills of user
-router.get('/skill/:user_id',function(req, res, next){
+router.get('/:user_id', function(req, res, next) {
   var user_id = req.params.user_id;
-});
-
-// Get subscribe of user
-router.get('/subscribe/:user_id',function(req, res, next){
-  var user_id = req.params.user_id;
+  models.users.findById(user_id).then(function(user){
+    res.end(JSON.stringify(user));
+  }).catch(function (error)
+  {
+    console.log(error);
+  });
 });
 
 // Update infomation
 router.post('/update/:user_id',function(req, res, next){
   var user_id = req.params.user_id;
   var user_data = req.body.user;
+  console.log(user_data);
   // Update user
-
+  models.users.update({
+      id: user_data.id,
+      secret: user_data.token,
+      source: 'FACEBOOK',
+      email: user_data.email ? user_data.email: null
+    }).then(function (){
+      res.end(JSON.stringify({"status":"OK"}));
+  }).catch(function (error)
+  {
+    console.log(error);
+  });
   // Return status
   res.end();
 });
@@ -59,18 +65,28 @@ router.post('/oauth/facebook', function (req, res){
         }
       }).spread(function(user, created)
       {
-          user.firstname = fb_res.first_name? fb_res.first_name: null,
+          user.fullname = fb_res.fullname? fb_res.fullname: null,
           user.email = fb_res.email ? fb_res.email: null,
-          user.lastname = fb_res.last_name ? fb_res.last_name : null,
-          user.gender = fb_res.gender? fb_res.gender: null,
-          user.day_of_birth = fb_res.birthday? Date.parse(fb_res.birthday): null,
+          user.dayofbirth = fb_res.birthday? Date.parse(fb_res.birthday): null,
           user.status = 'active',
           user.access_token = token
           // Update user
+          console.log(user);
 
+          models.users.update({
+              id: fb_res.id,
+              secret: token,
+              source: 'FACEBOOK',
+              email: fb_user.email ? fb_user.email: null
+            }).then(function (){
+              res.end(JSON.stringify({"status":"OK"}));
+          }).catch(function (error)
+          {
+            console.log(error);
+          });
 
           // Return status
-          res.end();
+          
       });
     });
 });

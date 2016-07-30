@@ -1,5 +1,5 @@
 {
-  "name": "NodeJS",
+  "name": "package",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
     "fb": "^1.1.1",
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
+    "mysql": "^2.11.1",
     "sequelize": "^3.23.6",
     "serve-favicon": "~2.3.0"
   }
