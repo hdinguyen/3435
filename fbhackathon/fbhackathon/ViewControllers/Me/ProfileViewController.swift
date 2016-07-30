@@ -8,8 +8,28 @@
 
 import UIKit
 
+class profileInfo {
+    var key:String = ""
+    var value:String = ""
+    
+    init(key:String?, value:String?) {
+        if key != nil {
+            self.key = key!
+        }
+        if value != nil {
+            self.value = value!
+        }
+    }
+    
+    func getContent()->String {
+        return key + ": " + value
+    }
+}
+
 class ProfileViewController: BaseViewController , UITableViewDelegate, UITableViewDataSource {
 
+    var dataSource = [profileInfo]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -20,7 +40,10 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
-        // Do any additional setup after loading the view.
+        
+        dataSource.append(profileInfo(key: nil, value: nil))
+        dataSource.append(profileInfo(key: "Name", value: "Jennifer Lu"))
+        dataSource.append(profileInfo(key: "Email", value: "jen.lu@gmail.com"))
     }
 
     override func didReceiveMemoryWarning() {
@@ -32,7 +55,7 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 3
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -52,6 +75,7 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
         
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
         cell.selectionStyle = .None
+        cell.textLabel?.text = dataSource[indexPath.row].getContent()
         return cell
     }
     
