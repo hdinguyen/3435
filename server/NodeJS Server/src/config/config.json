@@ -1,17 +1,17 @@
 {
   "database": {
     "development": {
-      "username": "root",
-      "password": "root",
-      "database": "butterflyhub_new",
-      "host": "localhost",
+      "username": "huyth",
+      "password": "123",
+      "database": "",
+      "host": "10.247.224.186:3306",
       "dialect": "mysql"
     }
   },
   "backend_url": {
-    "development": "http://localhost:5000"
+    "development": "http://localhost:3000"
   },
   "facebook_redirect_uri": {
-    "development": "http://localhost:3000/users/authenticate/facebook"
+    "development": "http://localhost:3000/oauth/facebook"
   }
 }
