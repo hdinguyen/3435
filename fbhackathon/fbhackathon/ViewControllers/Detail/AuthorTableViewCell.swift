@@ -13,7 +13,8 @@ class AuthorTableViewCell: UITableViewCell {
     var coverImage:UIImageView?
     var profileImage:UIImageView?
     var analysisLb:UILabel?
-
+    var join:UIButton?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -32,6 +33,13 @@ class AuthorTableViewCell: UITableViewCell {
             
             analysisLb = UILabel(frame: CGRect(x: profileImage!.frame.size.width + profileImage!.frame.origin.x, y: coverImage!.frame.size.height, width: coverImage!.frame.size.width, height: 30))
             self.addSubview(analysisLb!)
+            
+            join = UIButton(frame: CGRect(x: size.width - 50 - 20, y: coverImage!.frame.size.height - 30 - 10, width: 50, height: 30))
+            join?.layer.cornerRadius = 3
+            join?.layer.borderColor = UIColor.redColor().CGColor
+            join?.layer.borderWidth = 1
+            join?.setTitle("Offer", forState: .Normal)
+            self.addSubview(join!)
         }
         coverImage?.backgroundColor = UIColor.yellowColor()
         profileImage?.backgroundColor = UIColor.greenColor()
