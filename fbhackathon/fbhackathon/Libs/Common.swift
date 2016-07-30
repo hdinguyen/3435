@@ -10,6 +10,18 @@ import UIKit
 
 typealias commonHandler = (data:AnyObject?) -> Void
 
+let names = ["Jennifer", "Jenna", "Amanda", "Todd", "Hannah", "Max", "Ling"]
+
+class person {
+    var name:String = "Jennifer"
+    var image:UIImage = UIImage(named:"0")!
+    
+    init(name:Int, image:String) {
+        self.name = names[name]
+        self.image = UIImage(named: image)!
+    }
+}
+
 class Common: NSObject {
 
     static let shareInstance:Common = Common()
@@ -28,6 +40,11 @@ class Common: NSObject {
     func dismiss() {
         self.handler(data: nil)
         
+    }
+    
+    func userImage() -> person {
+        let ran = arc4random_uniform(6)
+        return person(name: Int(ran), image: "\(ran)")
     }
     
 }
