@@ -82,10 +82,6 @@ class FindViewViewController: BaseViewController, UITableViewDelegate, UITableVi
         return view
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Skill Category"
-    }
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let arr:[String] = Array(self.dataSource.keys)
         let key:String = arr[indexPath.section]
@@ -101,7 +97,9 @@ class FindViewViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let detail = DetailViewController(name: "golf")
+        let arr:[String] = Array(self.dataSource.keys)
+        let key:String = arr[indexPath.section]
+        let detail = DetailViewController(name: self.dataSource[key]![indexPath.row])
         self.navigationController?.pushViewController(detail, animated: true)
     }
     

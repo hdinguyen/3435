@@ -135,8 +135,9 @@ class NearByViewController: BaseViewController, MKMapViewDelegate,  CLLocationMa
             
             let coordinate = CLLocationCoordinate2D(latitude: lat2 * 180 / M_PI, longitude: lon2 * 180 / M_PI)
 //            print("\(lat2) - \(lon2)")
-            let pin = UpAnnotation(title: "King David Kalakaua",
-                                  locationName: "Waikiki Gateway Park",
+            let person = Common.shareInstance.userImage()
+            let pin = UpAnnotation(title: person.skill,
+                                  locationName: person.name,
                                   discipline: "Sculpture",
                                   coordinate: coordinate)
             

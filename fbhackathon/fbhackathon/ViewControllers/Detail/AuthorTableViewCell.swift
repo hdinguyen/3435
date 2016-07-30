@@ -8,19 +8,23 @@
 
 import UIKit
 
+typealias authorHandler = ()->Void
+
 class AuthorTableViewCell: UITableViewCell {
     
     var coverImage:UIImageView?
     var profileImage:UIImageView?
     var analysisLb:UILabel?
     var join:UIButton?
+    var handler:authorHandler!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
-    func load(data:AnyObject, editMode: Bool, size:CGSize) {
+    func load(data:String, editMode: Bool, size:CGSize, handler:authorHandler) {
+        self.handler = handler
         if coverImage == nil {
             coverImage = UIImageView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height - 30))
             coverImage?.contentMode = .ScaleAspectFill
@@ -39,17 +43,28 @@ class AuthorTableViewCell: UITableViewCell {
             analysisLb?.font = UIFont.systemFontOfSize(12)
             self.addSubview(analysisLb!)
             
-            join = UIButton(frame: CGRect(x: size.width - 50 - 20, y: coverImage!.frame.size.height - 30 - 10, width: 50, height: 30))
+            join = UIButton(frame: CGRect(x: size.width - 70 - 30, y: coverImage!.frame.size.height - 40 - 20, width: 70, height: 40))
             join?.layer.cornerRadius = 3
             join?.layer.borderColor = UIColor.redColor().CGColor
             join?.layer.borderWidth = 1
+            join?.backgroundColor = UIColor.colorWithHexString("434857cc")
+            join?.addTarget(self, action: #selector(AuthorTableViewCell.sendOffer), forControlEvents: .TouchUpInside)
             join?.setTitle("Offer", forState: .Normal)
             self.addSubview(join!)
         }
-        coverImage?.image = UIImage(named: "golf")
-        profileImage?.image = UIImage(named: "golf_profile")
+        if let image = UIImage(named: data) {
+            coverImage?.image = image
+        } else {
+            coverImage?.image = UIImage(named: "blur")
+        }
+        profileImage?.image = Common.shareInstance.userImage().image
         
         analysisLb?.text = "34 users used | 20 users said good quality"
+    }
+    
+    func sendOffer() {
+        join?.enabled = false
+        self.handler()
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

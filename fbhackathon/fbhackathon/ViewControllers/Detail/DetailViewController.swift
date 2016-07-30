@@ -66,7 +66,12 @@ class DetailViewController: BaseViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let authorCell = tableView.dequeueReusableCellWithIdentifier("author", forIndexPath: indexPath) as! AuthorTableViewCell
-            authorCell.load("abc", editMode: false, size: CGSize(width: tableView.frame.width, height: 230))
+            authorCell.load(self.titleName, editMode: false, size: CGSize(width: tableView.frame.width, height: 230), handler: {
+                let alertController = UIAlertController(title: "Sent Offer", message: "Your offer was sent. Please wait", preferredStyle: UIAlertControllerStyle.Alert)
+                let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                alertController.addAction(action)
+                self.presentViewController(alertController, animated: true, completion: nil)
+            })
             return authorCell
         }
         if indexPath.row == 1 {

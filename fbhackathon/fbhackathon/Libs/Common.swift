@@ -11,14 +11,17 @@ import UIKit
 typealias commonHandler = (data:AnyObject?) -> Void
 
 let names = ["Jennifer", "Jenna", "Amanda", "Todd", "Hannah", "Max", "Ling"]
+let skills = ["Boat", "Fishing", "Yoga", "Football", "Golf", "Orgami", "Math", "Zumba"]
 
 class person {
     var name:String = "Jennifer"
     var image:UIImage = UIImage(named:"0")!
+    var skill:String = "Cooking"
     
-    init(name:Int, image:String) {
+    init(name:Int, image:String, skill:Int) {
         self.name = names[name]
         self.image = UIImage(named: image)!
+        self.skill = skills[skill]
     }
 }
 
@@ -44,7 +47,8 @@ class Common: NSObject {
     
     func userImage() -> person {
         let ran = arc4random_uniform(6)
-        return person(name: Int(ran), image: "\(ran)")
+        let skill_ran = arc4random_uniform(7)
+        return person(name: Int(ran), image: "\(ran)", skill: Int(skill_ran))
     }
     
 }
