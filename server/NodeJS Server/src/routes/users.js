@@ -3,13 +3,23 @@ var express = require('express');
 var router = express.Router();
 var FB = require('fb');
 var async = require('async');
-
+var categories_map = {};
 var fb_credentials = {
 	client_id: '322571938081191',
 	client_secret: '76f01857cf3e8061980d765fd28eea0c',
 	version: 'v2.7'
 };
 FB.options({appId: fb_credentials.client_id, appSecret: fb_credentials.client_secret, version: fb_credentials.version});
+
+
+models.categories.findAll({
+  attributes : ['id', 'title']
+}).then(function (data){
+  data.forEach(function(element) {
+    categories_map["k" + element.id] = element.title;
+  }, this);
+});
+
 
 
 // START USERS
@@ -108,7 +118,16 @@ router.get('/:user_id/skills', function(req, res, next) {
     where_clause.type = type;
   }
   models.user_skills.findAll({where:where_clause}).then(function(user_skills){
-    res.end(JSON.stringify({status: "success", data: user_skills}));
+     var list_data = [];
+     user_skills.forEach(function(element){
+          element.tag1 = categories_map["k"+element.tag1];
+          element.tag2 = categories_map["k"+element.tag2];
+          element.tag3 = categories_map["k"+element.tag3];
+          element.tag4 = categories_map["k"+element.tag4];
+          element.tag5 = categories_map["k"+element.tag5];
+          list_data.push(element);
+      });
+    res.end(JSON.stringify({status: "success", data: list_data}));
   }).catch(function (error)
   {
     res.end(JSON.stringify({"status":"error"}));
@@ -142,9 +161,9 @@ router.post('/:user_id/skills', function(req, res, next) {
       next(error);
     });
   },function(error, results){
-    if (error){
-      res.end(JSON.stringify({status: 'error'}));
-    }
+      if (error){
+        res.end(JSON.stringify({status: 'error'}));
+      }
       else {
         res.end(JSON.stringify({status: 'success', data: results}))
       }
@@ -234,7 +253,11 @@ router.get('/:user_id/programs', function(req, res, next) {
   function parse_program(program){
     var dataValues = program.dataValues;
     ["user_id","details", "tag1","tag2", "tag3", "tag4", "tag5","level", "type"].forEach(function(key){
-      dataValues[key] = program.user_skill[key];
+      if(key.indexOf('tag') >= 0)
+      { 
+        if(categories_map["k"+program.user_skill[key]])
+          dataValues.user_skill[key] = categories_map["k"+program.user_skill[key]];
+      }
     });
     return dataValues;
   }
@@ -262,7 +285,12 @@ router.get('/:user_id/offers', function(req, res, next) {
   function parse_program(program){
     var dataValues = program.dataValues;
     ["user_id","details", "tag1","tag2", "tag3", "tag4", "tag5","level", "type"].forEach(function(key){
-      dataValues[key] = program.user_skill[key];
+      if(key.indexOf('tag') >= 0)
+      { 
+        if(categories_map["k"+program.user_skill[key]])
+          dataValues.user_skill[key] = categories_map["k"+program.user_skill[key]];
+        //console.log(categories_map["k"+program.user_skill[key]]);
+      }
     });
     return dataValues;
   }
