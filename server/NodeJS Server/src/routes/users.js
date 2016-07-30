@@ -13,7 +13,7 @@ FB.options({appId: fb_credentials.client_id, appSecret: fb_credentials.client_se
 
 
 // START USERS
-/* GET users listing. */
+/* GET user. */
 router.get('/:user_id', function(req, res, next) {
   var user_id = req.params.user_id;
   models.users.findById(user_id).then(function(user){
