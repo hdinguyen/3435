@@ -11,7 +11,7 @@ var fb_credentials = {
 FB.options({appId: fb_credentials.client_id, appSecret: fb_credentials.client_secret, version: fb_credentials.version});
 
 
-
+// START USERS
 /* GET users listing. */
 router.get('/:user_id', function(req, res, next) {
   var user_id = req.params.user_id;
@@ -19,12 +19,13 @@ router.get('/:user_id', function(req, res, next) {
     res.end(JSON.stringify(user));
   }).catch(function (error)
   {
+    res.end(JSON.stringify({"status":"error"}));
     console.log(error);
   });
 });
 
 // Update infomation
-router.post('/update/:user_id',function(req, res, next){
+router.post('/:user_id',function(req, res, next){
   var user_id = req.params.user_id;
   var user_data = req.body.user;
   console.log(user_data);
@@ -35,9 +36,10 @@ router.post('/update/:user_id',function(req, res, next){
       source: 'FACEBOOK',
       email: user_data.email ? user_data.email: null
     }).then(function (){
-      res.end(JSON.stringify({"status":"OK"}));
+      res.end(JSON.stringify({"status":"success"}));
   }).catch(function (error)
   {
+    res.end(JSON.stringify({"status":"error"}));
     console.log(error);
   });
   // Return status
@@ -79,9 +81,10 @@ router.post('/oauth/facebook', function (req, res){
               source: 'FACEBOOK',
               email: fb_user.email ? fb_user.email: null
             }).then(function (){
-              res.end(JSON.stringify({"status":"OK"}));
+              res.end(JSON.stringify({"status":"success"}));
           }).catch(function (error)
           {
+            res.end(JSON.stringify({"status":"error"}));
             console.log(error);
           });
 
@@ -90,6 +93,47 @@ router.post('/oauth/facebook', function (req, res){
       });
     });
 });
+// END UESRS
+
+// START COURSE
+// Get list skills of user
+router.get('/:user_id/skills', function(req, res, next) {
+  var type = req.body.type; // 0: Accquired / 1: Listed / 2: Interest
+  var user_id = req.params.user_id;
+  models.user_skills.find({where:{user_id: user_id, type: type}}).then(function(user){
+    res.end(JSON.stringify(user));
+  }).catch(function (error)
+  {
+    res.end(JSON.stringify({"status":"error"}));
+    console.log(error);
+  });
+});
+
+// Update list skils of user
+router.post('/:user_id/skill', function(req, res, next) {
+  var user_id = req.params.user_id;
+  var type = req.body.type; // 0: Accquired / 1: Listed / 2: Interest
+  var data = req.body.data;
+  models.user_skills.update({
+        id: data.id,
+        user_id: data.user_id,
+        details: data.details,
+        tag1: data.tag1,
+        tag2: data.tag2,
+        tag3: data.tag3,
+        tag4: data.tag4,
+        tag5: data.tag5,
+        level: data.level,
+        type: data.type
+      }).then(function (){
+        res.end(JSON.stringify({"status":"success"}));
+    }).catch(function (error)
+    {
+      res.end(JSON.stringify({"status":"error"}));
+      console.log(error);
+    });
+});
+// END COURSE
 
 
 

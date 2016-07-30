@@ -2,11 +2,11 @@
 
 
 module.exports = function (sequelize, DataTypes) {
-	var Users = sequelize.define("courses", {
+	var Courses = sequelize.define("courses", {
         id: DataTypes.INTEGER,
 		offer_id: DataTypes.INTEGER,
-		mentor_id: DataTypes.INTEGER,
-		mentee_id: DataTypes.INTEGER,
+		program_id: DataTypes.INTEGER,
+		status: DataTypes.INTEGER,
 		created_at: DataTypes.DATE,
 		updated_at: DataTypes.DATE
 	}, {
@@ -15,5 +15,5 @@ module.exports = function (sequelize, DataTypes) {
 		tableName: 'courses'
 	});
 
-	return Users;
+	return Courses;
 };
