@@ -20,7 +20,7 @@ class AuthorTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    func load(data:AnyObject, size:CGSize) {
+    func load(data:AnyObject, editMode: Bool, size:CGSize) {
         if coverImage == nil {
             coverImage = UIImageView(frame: CGRect(x: 0, y: 0, width: size.width, height: size.height - 30))
             self.addSubview(coverImage!)

@@ -38,6 +38,9 @@
 		0A89414F1D4C800300B8E9B2 /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89414E1D4C800300B8E9B2 /* RatingTableViewCell.swift */; };
 		0A8941511D4C80E100B8E9B2 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941501D4C80E100B8E9B2 /* FloatRatingView.swift */; };
 		0A8941531D4C822900B8E9B2 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941521D4C822900B8E9B2 /* CommentTableViewCell.swift */; };
+		0A8941561D4C8A0500B8E9B2 /* ComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941551D4C8A0500B8E9B2 /* ComposerViewController.swift */; };
+		0A8941581D4C8B4400B8E9B2 /* DescriptionComposerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941571D4C8B4400B8E9B2 /* DescriptionComposerTableViewCell.swift */; };
+		0A89415A1D4CA2DA00B8E9B2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8941591D4CA2DA00B8E9B2 /* CoreLocation.framework */; };
 		79DE5E8D1E5B7D2E97746728 /* Pods_fbhackathon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBE84DC2A4D58D1DD8A359D /* Pods_fbhackathon.framework */; };
 /* End PBXBuildFile section */
 
@@ -76,6 +79,9 @@
 		0A89414E1D4C800300B8E9B2 /* RatingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
 		0A8941501D4C80E100B8E9B2 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		0A8941521D4C822900B8E9B2 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
+		0A8941551D4C8A0500B8E9B2 /* ComposerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposerViewController.swift; sourceTree = "<group>"; };
+		0A8941571D4C8B4400B8E9B2 /* DescriptionComposerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionComposerTableViewCell.swift; sourceTree = "<group>"; };
+		0A8941591D4CA2DA00B8E9B2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		26AB6D150D28414F70983D78 /* Pods-fbhackathon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbhackathon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fbhackathon/Pods-fbhackathon.debug.xcconfig"; sourceTree = "<group>"; };
 		4BBE84DC2A4D58D1DD8A359D /* Pods_fbhackathon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbhackathon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F971C3526732AA903C2577AF /* Pods-fbhackathon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbhackathon.release.xcconfig"; path = "Pods/Target Support Files/Pods-fbhackathon/Pods-fbhackathon.release.xcconfig"; sourceTree = "<group>"; };
@@ -86,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A89415A1D4CA2DA00B8E9B2 /* CoreLocation.framework in Frameworks */,
 				0A8941451D4C6D3E00B8E9B2 /* MapKit.framework in Frameworks */,
 				0A874FF51D4C5BB90001EE53 /* Bolts.framework in Frameworks */,
 				0A874FF91D4C5BB90001EE53 /* FBSDKCoreKit.framework in Frameworks */,
@@ -149,6 +156,7 @@
 		0A874FDE1D4C563D0001EE53 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0A8941541D4C89F700B8E9B2 /* Composer */,
 				0A89413F1D4C6B9500B8E9B2 /* Find */,
 				0A874FDF1D4C566E0001EE53 /* Base */,
 				0A874FE01D4C566E0001EE53 /* Detail */,
@@ -231,6 +239,15 @@
 			path = Find;
 			sourceTree = "<group>";
 		};
+		0A8941541D4C89F700B8E9B2 /* Composer */ = {
+			isa = PBXGroup;
+			children = (
+				0A8941551D4C8A0500B8E9B2 /* ComposerViewController.swift */,
+				0A8941571D4C8B4400B8E9B2 /* DescriptionComposerTableViewCell.swift */,
+			);
+			path = Composer;
+			sourceTree = "<group>";
+		};
 		482A90FD41F4813776430854 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -243,6 +260,7 @@
 		7B611A3AA347B261FC15F64F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A8941591D4CA2DA00B8E9B2 /* CoreLocation.framework */,
 				0A8941441D4C6D3E00B8E9B2 /* MapKit.framework */,
 				4BBE84DC2A4D58D1DD8A359D /* Pods_fbhackathon.framework */,
 			);
@@ -386,11 +404,13 @@
 				0A8941491D4C770300B8E9B2 /* DetailViewController.swift in Sources */,
 				0A874FE61D4C56FF0001EE53 /* LoginViewController.swift in Sources */,
 				0A8941531D4C822900B8E9B2 /* CommentTableViewCell.swift in Sources */,
+				0A8941581D4C8B4400B8E9B2 /* DescriptionComposerTableViewCell.swift in Sources */,
 				0A8941511D4C80E100B8E9B2 /* FloatRatingView.swift in Sources */,
 				0A8750051D4C62990001EE53 /* PickingSkillViewController.swift in Sources */,
 				0A874FCE1D4C4F080001EE53 /* ViewController.swift in Sources */,
 				0A8941411D4C6B9F00B8E9B2 /* FindViewViewController.swift in Sources */,
 				0A874FCC1D4C4F080001EE53 /* AppDelegate.swift in Sources */,
+				0A8941561D4C8A0500B8E9B2 /* ComposerViewController.swift in Sources */,
 				0A874FE41D4C56E20001EE53 /* BaseViewController.swift in Sources */,
 				0A89414B1D4C7DB800B8E9B2 /* AuthorTableViewCell.swift in Sources */,
 				0A8941431D4C6BA800B8E9B2 /* NearByViewController.swift in Sources */,

@@ -53,7 +53,7 @@ class DetailViewController: BaseViewController, UITableViewDelegate, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let authorCell = tableView.dequeueReusableCellWithIdentifier("author", forIndexPath: indexPath) as! AuthorTableViewCell
-            authorCell.load("abc", size: CGSize(width: tableView.frame.width, height: 230))
+            authorCell.load("abc", editMode: false, size: CGSize(width: tableView.frame.width, height: 230))
             return authorCell
         }
         if indexPath.row == 1 {

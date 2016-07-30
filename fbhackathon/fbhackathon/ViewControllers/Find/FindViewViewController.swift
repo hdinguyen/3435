@@ -23,10 +23,15 @@ class FindViewViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.navigationItem.titleView = searchBar
         
         let nearBy:UIBarButtonItem = UIBarButtonItem(title: "Nearby", style: .Done, target: self, action: #selector(FindViewViewController.nearByPressed))
-        self.navigationItem.rightBarButtonItem = nearBy
+        self.navigationItem.leftBarButtonItem = nearBy
         
-//        self.navigationItem.titleView = 
-        // Do any additional setup after loading the view.
+        let addNew:UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Compose, target: self, action: #selector(FindViewViewController.newCourse))
+        self.navigationItem.rightBarButtonItem = addNew
+    }
+    
+    func newCourse() {
+        let composer = ComposerViewController()
+        self.navigationController?.pushViewController(composer, animated: true)
     }
     
     func nearByPressed() {
