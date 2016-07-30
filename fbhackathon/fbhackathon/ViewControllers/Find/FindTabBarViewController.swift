@@ -1,5 +1,5 @@
 //
-//  BaseViewController.swift
+//  FindTabBarViewController.swift
 //  fbhackathon
 //
 //  Created by Nguyenh on 7/30/16.
@@ -8,14 +8,12 @@
 
 import UIKit
 
-class BaseViewController: UIViewController {
+class FindTabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.automaticallyAdjustsScrollViewInsets = false
-        self.edgesForExtendedLayout = .None
-        
-        // Do any additional setup after loading the view.
+        self.tabBarItem.title = "Up"
+        self.tabBar.hidden = true
     }
 
     override func didReceiveMemoryWarning() {

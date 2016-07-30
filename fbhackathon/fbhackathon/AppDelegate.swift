@@ -27,6 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
     
+    func application(application: UIApplication, handleOpenURL url: NSURL) -> Bool {
+        let urlString = url.absoluteString
+        print(urlString)
+//        if urlString.containsString("butterflyhub://com.butterflyhub#access_token=") == true {
+//            NSNotificationCenter.defaultCenter().postNotificationName("INSTAGRAM_TOKEN_CATCH", object: urlString.stringByReplacingOccurrencesOfString("butterflyhub://com.butterflyhub#access_token=", withString: ""), userInfo: nil)
+//        } else {
+//            
+//        }
+        return true
+    }
+    
     func registerForPushNotifications(application: UIApplication) {
         let notificationSettings = UIUserNotificationSettings(
             forTypes: [.Badge, .Sound, .Alert], categories: nil)

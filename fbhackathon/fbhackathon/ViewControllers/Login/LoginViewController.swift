@@ -9,13 +9,24 @@
 import UIKit
 import FBSDKLoginKit
 
-class LoginViewController: BaseViewController {
+class LoginViewController: BaseViewController, FBSDKLoginButtonDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let fbLogin = FBSDKLoginButton(frame: CGRect(x: 20, y: 50, width: 100, height: 50))
+        fbLogin.delegate = self
         self.view.addSubview(fbLogin)
+        self.navigationItem.title = "Login"
+    }
+    
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        let picking = PickingSkillViewController(isMine: false)
+        self.navigationController?.pushViewController(picking, animated: true)
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        print("LOGOUT PRESSED")
     }
 
     override func didReceiveMemoryWarning() {

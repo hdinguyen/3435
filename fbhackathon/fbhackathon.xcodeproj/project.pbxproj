@@ -27,6 +27,17 @@
 		0A874FFE1D4C5DC10001EE53 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A874FFD1D4C5DC10001EE53 /* MainTabBarViewController.swift */; };
 		0A8750011D4C5EB00001EE53 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8750001D4C5EB00001EE53 /* DataManager.swift */; };
 		0A8750031D4C5ECF0001EE53 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8750021D4C5ECE0001EE53 /* APIClient.swift */; };
+		0A8750051D4C62990001EE53 /* PickingSkillViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8750041D4C62990001EE53 /* PickingSkillViewController.swift */; };
+		0A8941411D4C6B9F00B8E9B2 /* FindViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941401D4C6B9F00B8E9B2 /* FindViewViewController.swift */; };
+		0A8941431D4C6BA800B8E9B2 /* NearByViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941421D4C6BA800B8E9B2 /* NearByViewController.swift */; };
+		0A8941451D4C6D3E00B8E9B2 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8941441D4C6D3E00B8E9B2 /* MapKit.framework */; };
+		0A8941471D4C6DDE00B8E9B2 /* FindTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941461D4C6DDE00B8E9B2 /* FindTabBarViewController.swift */; };
+		0A8941491D4C770300B8E9B2 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941481D4C770300B8E9B2 /* DetailViewController.swift */; };
+		0A89414B1D4C7DB800B8E9B2 /* AuthorTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89414A1D4C7DB800B8E9B2 /* AuthorTableViewCell.swift */; };
+		0A89414D1D4C7F8000B8E9B2 /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89414C1D4C7F8000B8E9B2 /* DescriptionTableViewCell.swift */; };
+		0A89414F1D4C800300B8E9B2 /* RatingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89414E1D4C800300B8E9B2 /* RatingTableViewCell.swift */; };
+		0A8941511D4C80E100B8E9B2 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941501D4C80E100B8E9B2 /* FloatRatingView.swift */; };
+		0A8941531D4C822900B8E9B2 /* CommentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941521D4C822900B8E9B2 /* CommentTableViewCell.swift */; };
 		79DE5E8D1E5B7D2E97746728 /* Pods_fbhackathon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBE84DC2A4D58D1DD8A359D /* Pods_fbhackathon.framework */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +65,17 @@
 		0A874FFD1D4C5DC10001EE53 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		0A8750001D4C5EB00001EE53 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		0A8750021D4C5ECE0001EE53 /* APIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		0A8750041D4C62990001EE53 /* PickingSkillViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickingSkillViewController.swift; sourceTree = "<group>"; };
+		0A8941401D4C6B9F00B8E9B2 /* FindViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindViewViewController.swift; sourceTree = "<group>"; };
+		0A8941421D4C6BA800B8E9B2 /* NearByViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NearByViewController.swift; sourceTree = "<group>"; };
+		0A8941441D4C6D3E00B8E9B2 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		0A8941461D4C6DDE00B8E9B2 /* FindTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindTabBarViewController.swift; sourceTree = "<group>"; };
+		0A8941481D4C770300B8E9B2 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		0A89414A1D4C7DB800B8E9B2 /* AuthorTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorTableViewCell.swift; sourceTree = "<group>"; };
+		0A89414C1D4C7F8000B8E9B2 /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		0A89414E1D4C800300B8E9B2 /* RatingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RatingTableViewCell.swift; sourceTree = "<group>"; };
+		0A8941501D4C80E100B8E9B2 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
+		0A8941521D4C822900B8E9B2 /* CommentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentTableViewCell.swift; sourceTree = "<group>"; };
 		26AB6D150D28414F70983D78 /* Pods-fbhackathon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbhackathon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fbhackathon/Pods-fbhackathon.debug.xcconfig"; sourceTree = "<group>"; };
 		4BBE84DC2A4D58D1DD8A359D /* Pods_fbhackathon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbhackathon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F971C3526732AA903C2577AF /* Pods-fbhackathon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbhackathon.release.xcconfig"; path = "Pods/Target Support Files/Pods-fbhackathon/Pods-fbhackathon.release.xcconfig"; sourceTree = "<group>"; };
@@ -64,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A8941451D4C6D3E00B8E9B2 /* MapKit.framework in Frameworks */,
 				0A874FF51D4C5BB90001EE53 /* Bolts.framework in Frameworks */,
 				0A874FF91D4C5BB90001EE53 /* FBSDKCoreKit.framework in Frameworks */,
 				79DE5E8D1E5B7D2E97746728 /* Pods_fbhackathon.framework in Frameworks */,
@@ -126,6 +149,7 @@
 		0A874FDE1D4C563D0001EE53 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0A89413F1D4C6B9500B8E9B2 /* Find */,
 				0A874FDF1D4C566E0001EE53 /* Base */,
 				0A874FE01D4C566E0001EE53 /* Detail */,
 				0A874FE11D4C566E0001EE53 /* Login */,
@@ -145,6 +169,11 @@
 		0A874FE01D4C566E0001EE53 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
+				0A8941481D4C770300B8E9B2 /* DetailViewController.swift */,
+				0A89414A1D4C7DB800B8E9B2 /* AuthorTableViewCell.swift */,
+				0A89414C1D4C7F8000B8E9B2 /* DescriptionTableViewCell.swift */,
+				0A89414E1D4C800300B8E9B2 /* RatingTableViewCell.swift */,
+				0A8941521D4C822900B8E9B2 /* CommentTableViewCell.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -153,6 +182,7 @@
 			isa = PBXGroup;
 			children = (
 				0A874FE51D4C56FF0001EE53 /* LoginViewController.swift */,
+				0A8750041D4C62990001EE53 /* PickingSkillViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -168,6 +198,7 @@
 		0A874FE81D4C5BA90001EE53 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				0A8941501D4C80E100B8E9B2 /* FloatRatingView.swift */,
 				0A874FE91D4C5BB90001EE53 /* AccountKit.framework */,
 				0A874FEA1D4C5BB90001EE53 /* AccountKitStrings.bundle */,
 				0A874FEB1D4C5BB90001EE53 /* Bolts.framework */,
@@ -190,6 +221,16 @@
 			path = Data;
 			sourceTree = "<group>";
 		};
+		0A89413F1D4C6B9500B8E9B2 /* Find */ = {
+			isa = PBXGroup;
+			children = (
+				0A8941401D4C6B9F00B8E9B2 /* FindViewViewController.swift */,
+				0A8941421D4C6BA800B8E9B2 /* NearByViewController.swift */,
+				0A8941461D4C6DDE00B8E9B2 /* FindTabBarViewController.swift */,
+			);
+			path = Find;
+			sourceTree = "<group>";
+		};
 		482A90FD41F4813776430854 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -202,6 +243,7 @@
 		7B611A3AA347B261FC15F64F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0A8941441D4C6D3E00B8E9B2 /* MapKit.framework */,
 				4BBE84DC2A4D58D1DD8A359D /* Pods_fbhackathon.framework */,
 			);
 			name = Frameworks;
@@ -339,11 +381,21 @@
 			files = (
 				0A874FFE1D4C5DC10001EE53 /* MainTabBarViewController.swift in Sources */,
 				0A8750031D4C5ECF0001EE53 /* APIClient.swift in Sources */,
+				0A89414F1D4C800300B8E9B2 /* RatingTableViewCell.swift in Sources */,
 				0A8750011D4C5EB00001EE53 /* DataManager.swift in Sources */,
+				0A8941491D4C770300B8E9B2 /* DetailViewController.swift in Sources */,
 				0A874FE61D4C56FF0001EE53 /* LoginViewController.swift in Sources */,
+				0A8941531D4C822900B8E9B2 /* CommentTableViewCell.swift in Sources */,
+				0A8941511D4C80E100B8E9B2 /* FloatRatingView.swift in Sources */,
+				0A8750051D4C62990001EE53 /* PickingSkillViewController.swift in Sources */,
 				0A874FCE1D4C4F080001EE53 /* ViewController.swift in Sources */,
+				0A8941411D4C6B9F00B8E9B2 /* FindViewViewController.swift in Sources */,
 				0A874FCC1D4C4F080001EE53 /* AppDelegate.swift in Sources */,
 				0A874FE41D4C56E20001EE53 /* BaseViewController.swift in Sources */,
+				0A89414B1D4C7DB800B8E9B2 /* AuthorTableViewCell.swift in Sources */,
+				0A8941431D4C6BA800B8E9B2 /* NearByViewController.swift in Sources */,
+				0A89414D1D4C7F8000B8E9B2 /* DescriptionTableViewCell.swift in Sources */,
+				0A8941471D4C6DDE00B8E9B2 /* FindTabBarViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -462,6 +514,7 @@
 					"$(PROJECT_DIR)/fbhackathon/Libs",
 				);
 				INFOPLIST_FILE = fbhackathon/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nguyenh.fbhackathon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -478,6 +531,7 @@
 					"$(PROJECT_DIR)/fbhackathon/Libs",
 				);
 				INFOPLIST_FILE = fbhackathon/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.nguyenh.fbhackathon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
