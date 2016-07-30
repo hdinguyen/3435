@@ -44,7 +44,11 @@ class NearByViewController: BaseViewController, MKMapViewDelegate,  CLLocationMa
         
         let distance:UIBarButtonItem = UIBarButtonItem(title: "Distance", style: .Done, target: self, action: #selector(NearByViewController.distance))
         self.navigationItem.rightBarButtonItem = distance
-        
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let detail = DetailViewController()
+        self.navigationController?.pushViewController(detail, animated: true)
     }
     
     func distance() {
@@ -86,6 +90,27 @@ class NearByViewController: BaseViewController, MKMapViewDelegate,  CLLocationMa
         let region = MKCoordinateRegionMakeWithDistance(location.coordinate, currentDistance, currentDistance)
         map.setRegion(region, animated: true)
         manager.stopUpdatingLocation()
+        self.randomData(location)
+    }
+    
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if let annotation = annotation as? UpAnnotation {
+            let identifier = "pin"
+            var view: MKPinAnnotationView
+            if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
+                as? MKPinAnnotationView { // 2
+                dequeuedView.annotation = annotation
+                view = dequeuedView
+            } else {
+                // 3
+                view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+                view.canShowCallout = true
+                view.calloutOffset = CGPoint(x: -5, y: 5)
+                view.rightCalloutAccessoryView = UIButton(type: UIButtonType.DetailDisclosure) as UIView
+            }
+            return view
+        }
+        return nil
     }
     
     func findPressed() {
@@ -95,6 +120,28 @@ class NearByViewController: BaseViewController, MKMapViewDelegate,  CLLocationMa
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func randomData(location: CLLocation) {
+        for i:Int in 0...30 {
+            let distance = Double(arc4random_uniform(UInt32(currentDistance) + 200))/6372797.6
+            let angel = Double(arc4random())
+            
+            let lat1 = location.coordinate.latitude * M_PI / 180
+            let lon1 = location.coordinate.longitude * M_PI / 180
+            
+            let lat2 = asin(sin(lat1) * cos(distance) + cos(lat1) * sin(distance) * cos(angel))
+            let lon2 = lon1 + atan2(sin(angel) * sin(distance) * cos(lat1), cos(distance) - sin(lat1) * sin(lat2))
+            
+            let coordinate = CLLocationCoordinate2D(latitude: lat2 * 180 / M_PI, longitude: lon2 * 180 / M_PI)
+            
+            let pin = UpAnnotation(title: "King David Kalakaua",
+                                  locationName: "Waikiki Gateway Park",
+                                  discipline: "Sculpture",
+                                  coordinate: coordinate)
+            
+            self.map.addAnnotation(pin)
+        }
     }
     
 

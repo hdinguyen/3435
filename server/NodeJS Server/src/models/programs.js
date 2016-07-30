@@ -2,14 +2,13 @@
 
 
 module.exports = function (sequelize, DataTypes) {
-	var programs = sequelize.define("programs", {
-		user_skill_id: DataTypes.INTEGER,
-		title: DataTypes.STRING,
+	var Programs = sequelize.define("programs", {
+		skill_id: DataTypes.INTEGER,
 		details: DataTypes.STRING,
 		length: DataTypes.INTEGER,
-		price: DataTypes.DOUBLE,
-		is_offline: DataTypes.BOOLEAN,
-		location: DataTypes.STRING,
+        price: DataTypes.DOUBLE,
+        is_offline: DataTypes.BOOLEAN,
+        location: DataTypes.STRING,
 		created_at: DataTypes.DATE,
 		updated_at: DataTypes.DATE
 	}, {
@@ -18,5 +17,5 @@ module.exports = function (sequelize, DataTypes) {
 		tableName: 'programs'
 	});
 
-	return programs;
+	return Programs;
 };

@@ -8,11 +8,11 @@ module.exports = function (sequelize, DataTypes) {
 		username: DataTypes.STRING,
 		credit: DataTypes.STRING,
 		dayofbirth: DataTypes.DATE,
-        token: DataTypes.STRING,
+		token: DataTypes.STRING,
 		created_at: DataTypes.DATE,
 		updated_at: DataTypes.DATE,
-        source: DataTypes.STRING,
-        email: DataTypes.STRING
+		source: DataTypes.STRING,
+		email: DataTypes.STRING
 	}, {
 		timestamps: false
 	}, {
