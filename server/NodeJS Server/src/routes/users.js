@@ -93,6 +93,9 @@ router.post('/oauth/facebook', function (req, res){
 
           // Return status
           
+      }, function (error){
+        res.end(JSON.stringify({"status":"error"}));
+        console.log(error);
       });
     });
 });
