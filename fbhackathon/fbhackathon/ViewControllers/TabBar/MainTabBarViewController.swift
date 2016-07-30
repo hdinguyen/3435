@@ -7,17 +7,21 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import FBSDKLoginKit
 
 class MainTabBarViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        (self.viewControllers![1] as! UITabBarController).tabBarItem.title = "Me"
     }
     
     override func viewDidAppear(animated: Bool) {
-//        let loginVC = LoginViewController()
-//        self.presentViewController(UINavigationController(rootViewController: loginVC), animated: true, completion: nil)
+        if FBSDKAccessToken.currentAccessToken() == nil {
+            let loginVC = LoginViewController()
+            self.presentViewController(UINavigationController(rootViewController: loginVC), animated: true, completion: nil)
+        }
     }
 
     override func didReceiveMemoryWarning() {

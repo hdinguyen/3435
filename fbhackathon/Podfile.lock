@@ -1,18 +1,15 @@
 PODS:
   - Alamofire (3.4.0)
-  - CloudTagView (1.0.2)
   - Kingfisher (2.4.1)
 
 DEPENDENCIES:
   - Alamofire
-  - CloudTagView
   - Kingfisher (~> 2.4)
 
 SPEC CHECKSUMS:
   Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
-  CloudTagView: 417fa57a700a4313e154abec0cb7b005489fd4ca
   Kingfisher: 41aed5b6c1ed8fa98cf6d75283ce89cf7890f517
 
-PODFILE CHECKSUM: d0b3e373a8525c318420f9bb5a032b71134f811b
+PODFILE CHECKSUM: b3ef6030f19e909e867f598eee727fa37e0a930e
 
 COCOAPODS: 1.0.0

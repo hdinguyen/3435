@@ -123,7 +123,7 @@ class NearByViewController: BaseViewController, MKMapViewDelegate,  CLLocationMa
     }
     
     func randomData(location: CLLocation) {
-        for i:Int in 0...30 {
+        for i:Int in 0...50 {
             let distance = Double(arc4random_uniform(UInt32(currentDistance) + 200))/6372797.6
             let angel = Double(arc4random())
             
@@ -134,7 +134,7 @@ class NearByViewController: BaseViewController, MKMapViewDelegate,  CLLocationMa
             let lon2 = lon1 + atan2(sin(angel) * sin(distance) * cos(lat1), cos(distance) - sin(lat1) * sin(lat2))
             
             let coordinate = CLLocationCoordinate2D(latitude: lat2 * 180 / M_PI, longitude: lon2 * 180 / M_PI)
-            
+//            print("\(lat2) - \(lon2)")
             let pin = UpAnnotation(title: "King David Kalakaua",
                                   locationName: "Waikiki Gateway Park",
                                   discipline: "Sculpture",

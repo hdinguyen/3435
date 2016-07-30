@@ -8,9 +8,6 @@
       "dialect": "mysql"
     }
   },
-  "backend_url": {
-    "development": "http://localhost:3000"
-  },
   "facebook_redirect_uri": {
     "development": "http://localhost:3000/oauth/facebook"
   }

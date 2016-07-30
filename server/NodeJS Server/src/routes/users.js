@@ -2,6 +2,7 @@ var models  = require('../models');
 var express = require('express');
 var router = express.Router();
 var FB = require('fb');
+var async = require('async');
 
 var fb_credentials = {
 	client_id: '322571938081191',
@@ -98,10 +99,14 @@ router.post('/oauth/facebook', function (req, res){
 // START COURSE
 // Get list skills of user
 router.get('/:user_id/skills', function(req, res, next) {
-  var type = req.body.type; // 0: Accquired / 1: Listed / 2: Interest
+  var type = req.query.type; // 0: Accquired / 1: Listed / 2: Interest
   var user_id = req.params.user_id;
-  models.user_skills.find({where:{user_id: user_id, type: type}}).then(function(user){
-    res.end(JSON.stringify(user));
+  var where_clause = {user_id: user_id};
+  if (type) {
+    where_clause.type = type;
+  }
+  models.user_skills.findAll({where:where_clause}).then(function(user_skills){
+    res.end(JSON.stringify({status: "success", data: user_skills}));
   }).catch(function (error)
   {
     res.end(JSON.stringify({"status":"error"}));
@@ -110,31 +115,127 @@ router.get('/:user_id/skills', function(req, res, next) {
 });
 
 // Update list skils of user
-router.post('/:user_id/skill', function(req, res, next) {
+router.post('/:user_id/skills', function(req, res, next) {
   var user_id = req.params.user_id;
-  var type = req.body.type; // 0: Accquired / 1: Listed / 2: Interest
+  // 0: Accquired / 1: Listed / 2: Interest
+  var skill_type = req.body.skill_type;
   var data = req.body.data;
-  models.user_skills.update({
-        id: data.id,
-        user_id: data.user_id,
-        details: data.details,
-        tag1: data.tag1,
-        tag2: data.tag2,
-        tag3: data.tag3,
-        tag4: data.tag4,
-        tag5: data.tag5,
-        level: data.level,
-        type: data.type
-      }).then(function (){
-        res.end(JSON.stringify({"status":"success"}));
-    }).catch(function (error)
+  async.map(data, function(skill, next){
+    models.user_skills.findOrCreate({where: {
+      user_id: user_id,
+      details: skill.details,
+      tag1: skill.tag1,
+      tag2: skill.tag2,
+      tag3: skill.tag3,
+      tag4: skill.tag4,
+      tag5: skill.tag5,
+      level: skill.level,
+      type: skill_type
+    }
+    }).spread(function (skill, created){
+      next(null, created);
+    },function (error)
     {
-      res.end(JSON.stringify({"status":"error"}));
       console.log(error);
+      next(error);
     });
+  },function(error, results){
+    if (error){
+      res.end(JSON.stringify({status: 'error'}));
+    }
+      else {
+        res.end(JSON.stringify({status: 'success', data: results}))
+      }
+    }
+  );
 });
 // END COURSE
 
+
+// Update list skils of user
+// Get list skills of user
+router.get('/:user_id/courses', function(req, res, next) {
+  var user_id = req.params.user_id;
+  var type = req.query.type;
+  var status = req.query.status;
+  var where_clause = {};
+  if (status) {
+    where_clause.status = status;
+  }
+  if (type == 'mentee'){
+    models.courses.findAll({
+      where: where_clause,
+      include: [
+        {
+          model: models.offers, as: 'offer', where: {mentee: user_id, status: 1}
+        },
+        {
+          model: models.programs, as: 'program',
+          attributes: [
+            'id', 'title', 'details', 'length', 'location'
+          ]
+        }
+      ]
+    }).then(function (courses){
+        res.end(JSON.stringify({status: 'success', data: courses.map(parse_learning_course)}));
+      }
+    );
+  } else {
+    models.courses.findAll({
+      where: where_clause,
+      include: [
+        {
+          model: models.offers, as: 'offer', where: {mentor: user_id, status: 1}
+        },
+        {
+          model: models.programs, as: 'program',
+          attributes: [
+            'id', 'title', 'details', 'length', 'location'
+          ]
+        }
+      ]
+    }).then(function (courses){
+      res.end(JSON.stringify({status: 'success', data: courses.map(parse_teaching_course)}));
+    });
+  }
+
+  function parse_learning_course(course){
+    return course;
+  }
+
+  function parse_teaching_course(course){
+    return course;
+  }
+
+});
+
+
+router.get('/:user_id/programs', function(req, res, next) {
+  var user_id = req.params.user_id;
+  var type = req.query.type;
+  var where_clause = {};
+  if (type) {
+    where_clause.type = type;
+  }
+  models.programs.findAll({
+    where: where_clause,
+    include: [
+      {
+        model: models.user_skills, as: 'user_skill', where: {user_id: user_id}
+      }
+    ]
+  }).then(function (programs){
+      res.end(JSON.stringify({status: 'success', data: programs.map(parse_program)}));
+    }
+  );
+
+  function parse_program(program){
+    ["user_id","details", "tag1","tag2", "tag3", "tag4", "tag5","level", "type"].forEach(function(key){
+      program[key] = program.user_skill[key];
+    });
+    return program;
+  }
+});
 
 
 module.exports = router;

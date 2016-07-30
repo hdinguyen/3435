@@ -8,6 +8,22 @@
 
 import UIKit
 
+enum STATUS_SKILL:Int {
+    case MINE = 0
+    case LEARN = 1
+    case WISH_TO_LEARN = 2
+}
+
+class profileSkill {
+    var key:String = ""
+    var status:STATUS_SKILL = .MINE
+    
+    init(skillName:String, status:STATUS_SKILL) {
+        self.key = skillName
+        self.status = status
+    }
+}
+
 class profileInfo {
     var key:String = ""
     var value:String = ""
@@ -29,6 +45,7 @@ class profileInfo {
 class ProfileViewController: BaseViewController , UITableViewDelegate, UITableViewDataSource {
 
     var dataSource = [profileInfo]()
+    var skillSource = [profileSkill]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +55,27 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
         tableView.dataSource = self
         tableView.registerClass(ProfileImageTableViewCell.self, forCellReuseIdentifier: "imageProfile")
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.registerClass(ProfileSkillTableViewCell.self, forCellReuseIdentifier: "skillCell")
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
+        
+        skillSource.append(profileSkill(skillName: "Smoothy mix", status: .MINE))
+        skillSource.append(profileSkill(skillName: "Tollet cleanning", status: .MINE))
+        skillSource.append(profileSkill(skillName: "Oganami", status: .LEARN))
+        skillSource.append(profileSkill(skillName: "Catwalk model", status: .WISH_TO_LEARN))
+        skillSource.append(profileSkill(skillName: "Búng thun", status: .MINE))
+        skillSource.append(profileSkill(skillName: "Yoga", status: .LEARN))
         
         dataSource.append(profileInfo(key: nil, value: nil))
         dataSource.append(profileInfo(key: "Name", value: "Jennifer Lu"))
         dataSource.append(profileInfo(key: "Email", value: "jen.lu@gmail.com"))
+        dataSource.append(profileInfo(key: "My Skills", value: "\(skillSource.count)"))
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        (self.tabBarController as! MeViewController).topView.hidden = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,7 +87,7 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 5
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -73,10 +105,21 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
             return cell
         }
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
-        cell.selectionStyle = .None
-        cell.textLabel?.text = dataSource[indexPath.row].getContent()
+        if indexPath.row < 4 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
+            cell.selectionStyle = .None
+            cell.textLabel?.text = dataSource[indexPath.row].getContent()
+            return cell
+        }
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("skillCell", forIndexPath: indexPath) as! ProfileSkillTableViewCell
+        cell.loadCell(skillSource, size: CGSize(width: tableView.frame.size.width, height: 200))
         return cell
+    }
+    
+    func showPickerSkill() {
+        let pick = PickingSkillViewController(isMine: true)
+        self.navigationController?.pushViewController(pick, animated: true)
     }
     
 

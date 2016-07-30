@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ComposerViewController: BaseViewController, UITextViewDelegate {
+class ComposerViewController: BaseViewController, UITextViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
     var composerHeight:CGFloat = 500
     
@@ -25,6 +25,7 @@ class ComposerViewController: BaseViewController, UITextViewDelegate {
         
         let coverImage = UIButton(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: 200))
         coverImage.backgroundColor = UIColor.yellowColor()
+        coverImage.addTarget(self, action: #selector(ComposerViewController.selectCover), forControlEvents: .TouchUpInside)
         scrollView.addSubview(coverImage)
         
         let profileImage = UIButton(frame: CGRect(x: 30, y: coverImage.frame.size.height - 70, width: 100, height: 100))
@@ -32,6 +33,7 @@ class ComposerViewController: BaseViewController, UITextViewDelegate {
         profileImage.layer.masksToBounds = true
         profileImage.layer.borderWidth = 1
         profileImage.layer.borderColor = UIColor.whiteColor().CGColor
+        profileImage.addTarget(self, action: #selector(ComposerViewController.selectProfile), forControlEvents: .TouchUpInside)
         scrollView.addSubview(profileImage)
         
         contentComposer.frame = CGRect(x: 10, y: profileImage.frame.size.height + profileImage.frame.origin.y + 10, width: frame.size.width - 20, height: self.view.frame.height - 64 - 230 - 64)
@@ -52,6 +54,46 @@ class ComposerViewController: BaseViewController, UITextViewDelegate {
         
         let submit = UIBarButtonItem(title: "Submit", style: .Done, target: self, action: #selector(ComposerViewController.donePressed))
         self.navigationItem.rightBarButtonItem = submit
+    }
+    
+    func selectCover() {
+        let action = UIAlertController(title: "pick image", message: nil, preferredStyle: .ActionSheet)
+        
+        let optionCamera = UIAlertAction(title: "Camera", style: .Default) { (action) in
+            
+        }
+        
+        let optionPhoto = UIAlertAction(title: "Photo Library", style: .Default) { (action) in
+            
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        action.addAction(optionCamera)
+        action.addAction(optionPhoto)
+        action.addAction(cancel)
+        
+        self.presentViewController(action, animated: true, completion: nil)
+    }
+    
+    func selectProfile() {
+        let action = UIAlertController(title: "pick image", message: nil, preferredStyle: .ActionSheet)
+        
+        let optionCamera = UIAlertAction(title: "Camera", style: .Default) { (action) in
+            
+        }
+        
+        let optionPhoto = UIAlertAction(title: "Photo Library", style: .Default) { (action) in
+            
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        
+        action.addAction(optionCamera)
+        action.addAction(optionPhoto)
+        action.addAction(cancel)
+        
+        self.presentViewController(action, animated: true, completion: nil)
     }
     
     func donePressed () {
