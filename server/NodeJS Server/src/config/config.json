@@ -2,14 +2,10 @@
   "database": {
     "development": {
       "username": "huyth",
-      "password": "123",
       "database": "fbhackathon",
-      "host": "10.247.224.186:3306",
+      "host": "10.247.224.186",
       "dialect": "mysql"
     }
-  },
-  "backend_url": {
-    "development": "http://localhost:3000"
   },
   "facebook_redirect_uri": {
     "development": "http://localhost:3000/oauth/facebook"
