@@ -4,12 +4,12 @@
 module.exports = function (sequelize, DataTypes) {
 	var Offers = sequelize.define("offers", {
         id: DataTypes.INTEGER,
-		mentor: DataTypes.INTEGER,
-		mentee: DataTypes.INTEGER,
-		progam_id: DataTypes.INTEGER,
+		skill_id: DataTypes.INTEGER,
+		details: DataTypes.STRING,
+		length: DataTypes.INTEGER,
         price: DataTypes.DOUBLE,
-        return_progam_id: DataTypes.INTEGER,
-        status: DataTypes.INTEGER,
+        is_offline: DataTypes.BOOLEAN,
+        location: DataTypes.STRING,
 		created_at: DataTypes.DATE,
 		updated_at: DataTypes.DATE
 	}, {

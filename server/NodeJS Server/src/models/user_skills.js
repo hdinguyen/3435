@@ -19,5 +19,5 @@ module.exports = function (sequelize, DataTypes) {
 		tableName: 'user_skills'
 	});
 
-	return Users;
+	return User_skills;
 };
