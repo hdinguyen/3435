@@ -2,8 +2,7 @@
 
 
 module.exports = function (sequelize, DataTypes) {
-	var Users = sequelize.define("users", {
-        id: DataTypes.INTEGER,
+	var users = sequelize.define("users", {
 		id_card: DataTypes.STRING,
 		fullname: DataTypes.STRING,
 		username: DataTypes.STRING,
@@ -20,5 +19,5 @@ module.exports = function (sequelize, DataTypes) {
 		tableName: 'users'
 	});
 
-	return Users;
+	return users;
 };
