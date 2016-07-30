@@ -8,6 +8,5 @@ use_frameworks!
 
 pod 'Kingfisher', '~> 2.4'
 pod 'Alamofire'
-
 end
 

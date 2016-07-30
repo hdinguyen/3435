@@ -11,7 +11,7 @@ import Alamofire
 
 
 typealias api_response = (data:AnyObject?, error:NSError?) -> Void
-let API_URL = "http://localhost/"
+let API_URL = "http://10.247.224.185:3000/"
 
 class ApiManager {
     static let sharedInstance: Manager = {

@@ -41,6 +41,8 @@ class PickingSkillViewController: BaseViewController, UITableViewDelegate, UITab
         
         let done:UIBarButtonItem = UIBarButtonItem(title: "Done", style: .Done, target: self, action: #selector(PickingSkillViewController.donePressed(_:)))
         self.navigationItem.rightBarButtonItem = done
+        
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     func donePressed(sender: AnyObject) {

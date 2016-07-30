@@ -47,6 +47,8 @@
 		0A8941631D4CDE6800B8E9B2 /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941621D4CDE6800B8E9B2 /* CourseViewController.swift */; };
 		0A8941651D4CDE7300B8E9B2 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941641D4CDE7300B8E9B2 /* ProfileViewController.swift */; };
 		0A8941671D4CE40D00B8E9B2 /* ProfileImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941661D4CE40D00B8E9B2 /* ProfileImageTableViewCell.swift */; };
+		0AA7C5A21D4CECF1001D818F /* ProfileSkillTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA7C5A11D4CECF1001D818F /* ProfileSkillTableViewCell.swift */; };
+		0AA7C5A41D4D040A001D818F /* CloudTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AA7C5A31D4D040A001D818F /* CloudTagView.swift */; };
 		79DE5E8D1E5B7D2E97746728 /* Pods_fbhackathon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBE84DC2A4D58D1DD8A359D /* Pods_fbhackathon.framework */; };
 /* End PBXBuildFile section */
 
@@ -94,6 +96,8 @@
 		0A8941621D4CDE6800B8E9B2 /* CourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
 		0A8941641D4CDE7300B8E9B2 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		0A8941661D4CE40D00B8E9B2 /* ProfileImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageTableViewCell.swift; sourceTree = "<group>"; };
+		0AA7C5A11D4CECF1001D818F /* ProfileSkillTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileSkillTableViewCell.swift; sourceTree = "<group>"; };
+		0AA7C5A31D4D040A001D818F /* CloudTagView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudTagView.swift; sourceTree = "<group>"; };
 		26AB6D150D28414F70983D78 /* Pods-fbhackathon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbhackathon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fbhackathon/Pods-fbhackathon.debug.xcconfig"; sourceTree = "<group>"; };
 		4BBE84DC2A4D58D1DD8A359D /* Pods_fbhackathon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbhackathon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F971C3526732AA903C2577AF /* Pods-fbhackathon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbhackathon.release.xcconfig"; path = "Pods/Target Support Files/Pods-fbhackathon/Pods-fbhackathon.release.xcconfig"; sourceTree = "<group>"; };
@@ -219,6 +223,7 @@
 		0A874FE81D4C5BA90001EE53 /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				0AA7C5A31D4D040A001D818F /* CloudTagView.swift */,
 				0A8941501D4C80E100B8E9B2 /* FloatRatingView.swift */,
 				0A874FE91D4C5BB90001EE53 /* AccountKit.framework */,
 				0A874FEA1D4C5BB90001EE53 /* AccountKitStrings.bundle */,
@@ -270,6 +275,7 @@
 				0A8941621D4CDE6800B8E9B2 /* CourseViewController.swift */,
 				0A8941641D4CDE7300B8E9B2 /* ProfileViewController.swift */,
 				0A8941661D4CE40D00B8E9B2 /* ProfileImageTableViewCell.swift */,
+				0AA7C5A11D4CECF1001D818F /* ProfileSkillTableViewCell.swift */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -441,11 +447,13 @@
 				0A874FCE1D4C4F080001EE53 /* ViewController.swift in Sources */,
 				0A8941631D4CDE6800B8E9B2 /* CourseViewController.swift in Sources */,
 				0A8941411D4C6B9F00B8E9B2 /* FindViewViewController.swift in Sources */,
+				0AA7C5A41D4D040A001D818F /* CloudTagView.swift in Sources */,
 				0A874FCC1D4C4F080001EE53 /* AppDelegate.swift in Sources */,
 				0A8941561D4C8A0500B8E9B2 /* ComposerViewController.swift in Sources */,
 				0A874FE41D4C56E20001EE53 /* BaseViewController.swift in Sources */,
 				0A89414B1D4C7DB800B8E9B2 /* AuthorTableViewCell.swift in Sources */,
 				0A8941431D4C6BA800B8E9B2 /* NearByViewController.swift in Sources */,
+				0AA7C5A21D4CECF1001D818F /* ProfileSkillTableViewCell.swift in Sources */,
 				0A89414D1D4C7F8000B8E9B2 /* DescriptionTableViewCell.swift in Sources */,
 				0A8941471D4C6DDE00B8E9B2 /* FindTabBarViewController.swift in Sources */,
 			);
