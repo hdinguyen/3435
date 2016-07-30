@@ -9,6 +9,7 @@ module.exports = function (sequelize, DataTypes) {
 		progam_id: DataTypes.INTEGER,
         price: DataTypes.DOUBLE,
         return_progam_id: DataTypes.INTEGER,
+		type: DataTypes.INTEGER,
         status: DataTypes.INTEGER,
 		created_at: DataTypes.DATE,
 		updated_at: DataTypes.DATE
