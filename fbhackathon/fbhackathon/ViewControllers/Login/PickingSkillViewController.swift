@@ -12,6 +12,7 @@ class PickingSkillViewController: BaseViewController, UITableViewDelegate, UITab
 
     let searchTxt = UISearchBar()
     var isMine = true
+    var selectedRow = [Int]()
     
     init(isMine:Bool) {
         super.init(nibName: nil, bundle: nil)
@@ -33,6 +34,7 @@ class PickingSkillViewController: BaseViewController, UITableViewDelegate, UITab
         let tableView = UITableView(frame: CGRect(x: 0, y: searchTxt.frame.size.height, width: self.view.frame.size.width, height: self.view.frame.size.height - searchTxt.frame.size.height))
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.allowsMultipleSelection = true
         tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.view = tableView
         if isMine == false {
@@ -115,9 +117,11 @@ class PickingSkillViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let detail = DetailViewController(name: "golf")
-        self.navigationController?.pushViewController(detail, animated: true)
+        if selectedRow.contains(indexPath.row) == true {
+            selectedRow.removeAtIndex(selectedRow.indexOf(indexPath.row)!)
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+        
     }
     
     
