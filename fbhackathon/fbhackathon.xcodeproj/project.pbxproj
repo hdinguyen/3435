@@ -42,6 +42,11 @@
 		0A8941581D4C8B4400B8E9B2 /* DescriptionComposerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941571D4C8B4400B8E9B2 /* DescriptionComposerTableViewCell.swift */; };
 		0A89415A1D4CA2DA00B8E9B2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A8941591D4CA2DA00B8E9B2 /* CoreLocation.framework */; };
 		0A89415C1D4CAECA00B8E9B2 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89415B1D4CAECA00B8E9B2 /* Common.swift */; };
+		0A89415E1D4CB5C400B8E9B2 /* UpAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A89415D1D4CB5C400B8E9B2 /* UpAnnotation.swift */; };
+		0A8941611D4CDCDA00B8E9B2 /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941601D4CDCDA00B8E9B2 /* MeViewController.swift */; };
+		0A8941631D4CDE6800B8E9B2 /* CourseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941621D4CDE6800B8E9B2 /* CourseViewController.swift */; };
+		0A8941651D4CDE7300B8E9B2 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941641D4CDE7300B8E9B2 /* ProfileViewController.swift */; };
+		0A8941671D4CE40D00B8E9B2 /* ProfileImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8941661D4CE40D00B8E9B2 /* ProfileImageTableViewCell.swift */; };
 		79DE5E8D1E5B7D2E97746728 /* Pods_fbhackathon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4BBE84DC2A4D58D1DD8A359D /* Pods_fbhackathon.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,6 +89,11 @@
 		0A8941571D4C8B4400B8E9B2 /* DescriptionComposerTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionComposerTableViewCell.swift; sourceTree = "<group>"; };
 		0A8941591D4CA2DA00B8E9B2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0A89415B1D4CAECA00B8E9B2 /* Common.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
+		0A89415D1D4CB5C400B8E9B2 /* UpAnnotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpAnnotation.swift; sourceTree = "<group>"; };
+		0A8941601D4CDCDA00B8E9B2 /* MeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
+		0A8941621D4CDE6800B8E9B2 /* CourseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CourseViewController.swift; sourceTree = "<group>"; };
+		0A8941641D4CDE7300B8E9B2 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		0A8941661D4CE40D00B8E9B2 /* ProfileImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileImageTableViewCell.swift; sourceTree = "<group>"; };
 		26AB6D150D28414F70983D78 /* Pods-fbhackathon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbhackathon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-fbhackathon/Pods-fbhackathon.debug.xcconfig"; sourceTree = "<group>"; };
 		4BBE84DC2A4D58D1DD8A359D /* Pods_fbhackathon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_fbhackathon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F971C3526732AA903C2577AF /* Pods-fbhackathon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-fbhackathon.release.xcconfig"; path = "Pods/Target Support Files/Pods-fbhackathon/Pods-fbhackathon.release.xcconfig"; sourceTree = "<group>"; };
@@ -158,6 +168,7 @@
 		0A874FDE1D4C563D0001EE53 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0A89415F1D4CDCCD00B8E9B2 /* Me */,
 				0A8941541D4C89F700B8E9B2 /* Composer */,
 				0A89413F1D4C6B9500B8E9B2 /* Find */,
 				0A874FDF1D4C566E0001EE53 /* Base */,
@@ -238,6 +249,7 @@
 				0A8941401D4C6B9F00B8E9B2 /* FindViewViewController.swift */,
 				0A8941421D4C6BA800B8E9B2 /* NearByViewController.swift */,
 				0A8941461D4C6DDE00B8E9B2 /* FindTabBarViewController.swift */,
+				0A89415D1D4CB5C400B8E9B2 /* UpAnnotation.swift */,
 			);
 			path = Find;
 			sourceTree = "<group>";
@@ -249,6 +261,17 @@
 				0A8941571D4C8B4400B8E9B2 /* DescriptionComposerTableViewCell.swift */,
 			);
 			path = Composer;
+			sourceTree = "<group>";
+		};
+		0A89415F1D4CDCCD00B8E9B2 /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				0A8941601D4CDCDA00B8E9B2 /* MeViewController.swift */,
+				0A8941621D4CDE6800B8E9B2 /* CourseViewController.swift */,
+				0A8941641D4CDE7300B8E9B2 /* ProfileViewController.swift */,
+				0A8941661D4CE40D00B8E9B2 /* ProfileImageTableViewCell.swift */,
+			);
+			path = Me;
 			sourceTree = "<group>";
 		};
 		482A90FD41F4813776430854 /* Pods */ = {
@@ -406,12 +429,17 @@
 				0A8750011D4C5EB00001EE53 /* DataManager.swift in Sources */,
 				0A8941491D4C770300B8E9B2 /* DetailViewController.swift in Sources */,
 				0A874FE61D4C56FF0001EE53 /* LoginViewController.swift in Sources */,
+				0A8941651D4CDE7300B8E9B2 /* ProfileViewController.swift in Sources */,
 				0A8941531D4C822900B8E9B2 /* CommentTableViewCell.swift in Sources */,
 				0A8941581D4C8B4400B8E9B2 /* DescriptionComposerTableViewCell.swift in Sources */,
+				0A8941671D4CE40D00B8E9B2 /* ProfileImageTableViewCell.swift in Sources */,
 				0A89415C1D4CAECA00B8E9B2 /* Common.swift in Sources */,
+				0A89415E1D4CB5C400B8E9B2 /* UpAnnotation.swift in Sources */,
 				0A8941511D4C80E100B8E9B2 /* FloatRatingView.swift in Sources */,
 				0A8750051D4C62990001EE53 /* PickingSkillViewController.swift in Sources */,
+				0A8941611D4CDCDA00B8E9B2 /* MeViewController.swift in Sources */,
 				0A874FCE1D4C4F080001EE53 /* ViewController.swift in Sources */,
+				0A8941631D4CDE6800B8E9B2 /* CourseViewController.swift in Sources */,
 				0A8941411D4C6B9F00B8E9B2 /* FindViewViewController.swift in Sources */,
 				0A874FCC1D4C4F080001EE53 /* AppDelegate.swift in Sources */,
 				0A8941561D4C8A0500B8E9B2 /* ComposerViewController.swift in Sources */,
