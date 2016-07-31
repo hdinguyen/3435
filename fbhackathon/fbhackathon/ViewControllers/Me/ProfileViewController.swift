@@ -61,7 +61,7 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
         
         APIClient.getRequest("users/\(DataManager.shareInstance.userId)/skills", complete: { (data, error) in
             if error == nil {
-                let status = data!["status"] as! String
+                let status = data!["fullname"] as! String
                 if status == "success" {
                     let skills = data!["data"] as! [[String:AnyObject]]
                     for i:[String:AnyObject] in skills {
@@ -72,9 +72,16 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
             }
         })
         
-        dataSource.append(profileInfo(key: nil, value: nil))
-        dataSource.append(profileInfo(key: "Name", value: "Jennifer Lu"))
-        dataSource.append(profileInfo(key: "Email", value: "jen.lu@gmail.com"))
+        APIClient.getRequest("users/\(DataManager.shareInstance.userId)", complete: { (data, error) in
+            if error == nil {
+                let fullname = data!["fullname"] as! String
+                let email = data!["email"] as! String
+                self.dataSource.append(profileInfo(key: nil, value: nil))
+                self.dataSource.append(profileInfo(key: "Name", value: fullname))
+                self.dataSource.append(profileInfo(key: "Email", value: email))
+                tableView.reloadData()
+            }
+        })
         dataSource.append(profileInfo(key: "My Skills", value: "\(skillSource.count)"))
     }
     

@@ -19,6 +19,7 @@ class program {
     var program_detail:String = ""
     var program_length:String = ""
     var program_price:String = ""
+    var program_title:String = ""
     var is_offline:Bool = true
     var location:String = "0.0 - 0.0"
     
@@ -27,15 +28,67 @@ class program {
         self.program_detail = data["details"] as! String
         self.program_length = (data["length"] as! NSNumber).stringValue
         self.program_price = (data["price"] as! NSNumber).stringValue
+        self.program_title = data["title"] as! String
         self.is_offline = (data["is_offline"] as! NSNumber).boolValue
         self.location = data["location"] as! String
+    }
+}
+
+class course {
+    var course_id:String = ""
+    var program_detail:String = ""
+    var status:String = ""
+    var title:String = ""
+    var location:String = "0.0 - 0.0"
+    
+    init(data:[String:AnyObject]) {
+        self.course_id = (data["id"] as! NSNumber).stringValue
+        self.program_detail = data["program"]!["details"] as! String
+        self.status = (data["status"] as! NSNumber).stringValue
+        self.title = data["program"]!["title"] as! String
+        self.program_detail = data["program"]!["details"] as! String
+        self.location = data["program"]!["location"] as! String
+    }
+}
+
+class offer {
+    var offer_id:String = ""
+    var program_id:String = ""
+    var program_detail:String = ""
+    var program_title:String = ""
+    var price:String = ""
+    var return_program_id:String = ""
+    var return_program_detail:String = ""
+    var return_program_title:String = ""
+    var mentor_id:String = ""
+    var mentee_id:String = ""
+    var type: String = ""
+    var status: String = ""
+    var mentor_identity: String = ""
+    var mentee_identity: String = ""
+    
+    init(offer:[String:AnyObject]) {
+        self.offer_id = (offer["id"] as! NSNumber).stringValue
+        self.program_id = (offer["program"]!["id"] as! NSNumber).stringValue
+        self.program_detail = offer["program"]!["details"] as! String
+        self.program_title = offer["program"]!["title"] as! String
+        self.price = (offer["price"] as! NSNumber).stringValue
+        self.return_program_id = (offer["return_program"]!["id"] as! NSNumber).stringValue
+        self.return_program_detail = offer["return_program"]!["details"] as! String
+        self.return_program_title = offer["return_program"]!["title"] as! String
+        self.mentor_id = (offer["mentor_person"]!["id"] as! NSNumber).stringValue
+        self.mentee_id = (offer["mentee_person"]!["id"] as! NSNumber).stringValue
+        self.type = (offer["is_offline"] as! NSNumber).stringValue
+        self.status = offer["status"] as! String
+        self.mentor_identity = offer["mentor_person"]!["identity"] as! String
+        self.mentor_identity = offer["mentee_person"]!["identity"] as! String
     }
 }
 
 class CourseViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     var screenType:COURSE_SCREEN = .PROGRAM
-    var dataSource = [program]()
+    var dataSource = [AnyObject]()
 
     init (screen:COURSE_SCREEN) {
         super.init(nibName: nil, bundle: nil)
@@ -56,13 +109,16 @@ class CourseViewController: BaseViewController, UITableViewDelegate, UITableView
         
         switch screenType {
         case .COURSE:
-            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/courses?type=mentor") { (data, error) in
+            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/courses") { (data, error) in
+                for i:[String:AnyObject] in data!["data"] as! [[String:AnyObject]] {
+                    self.dataSource.append(course(data: i))
+                }
                 tableView.reloadData()
             }
         case .PROGRAM:
-//            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/programs") { (data, error) in
-            APIClient.getRequest("users/1/programs") { (data, error) in
-                
+            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/programs") { (data, error) in
+//            APIClient.getRequest("users/1/programs") { (data, error) in
+            
                 for i:[String:AnyObject] in data!["data"] as! [[String:AnyObject]] {
                     self.dataSource.append(program(data: i))
                 }
@@ -70,8 +126,10 @@ class CourseViewController: BaseViewController, UITableViewDelegate, UITableView
             }
             
         case .OFFER:
-            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/offer") { (data, error) in
-                
+            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/offers") { (data, error) in
+                for i:[String:AnyObject] in data!["data"] as! [[String:AnyObject]] {
+                    self.dataSource.append(offer(offer: i))
+                }
                 tableView.reloadData()
             }
         }
@@ -90,14 +148,22 @@ class CourseViewController: BaseViewController, UITableViewDelegate, UITableView
         if cell == nil {
             cell = UITableViewCell(style: .Value1, reuseIdentifier: "cell")
         }
+        switch self.screenType {
+        case .COURSE:
+            let itemCourse = self.dataSource[indexPath.row] as! course
+            cell?.textLabel?.text = itemCourse.program_detail
+            cell?.detailTextLabel?.text = itemCourse.location
+        case .OFFER:
+            let itemOffer = self.dataSource[indexPath.row] as! offer
+            cell?.textLabel?.text = itemOffer.program_title
+            cell?.detailTextLabel?.text = itemOffer.program_detail
+        case .PROGRAM:
+            let itemProgram = self.dataSource[indexPath.row] as! program
+            cell?.textLabel?.text = itemProgram.program_detail
+            cell?.detailTextLabel?.text = ""
         
-        cell?.textLabel?.text = dataSource[indexPath.row].program_detail
-        cell?.detailTextLabel?.text = "$\(dataSource[indexPath.row].program_price)"
-        if dataSource[indexPath.row].is_offline == true {
-            cell?.imageView?.image = UIImage(named: "offline")
-        } else {
-            cell?.imageView?.image = UIImage(named: "online")
         }
+        
         return cell!
     }
     
