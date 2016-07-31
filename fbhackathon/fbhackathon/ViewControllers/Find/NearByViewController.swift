@@ -47,7 +47,7 @@ class NearByViewController: BaseViewController, MKMapViewDelegate,  CLLocationMa
     }
     
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        let detail = DetailViewController(name: "golf")
+        let detail = DetailViewController(name: "golf", show_offer: true)
         self.navigationController?.pushViewController(detail, animated: true)
     }
     

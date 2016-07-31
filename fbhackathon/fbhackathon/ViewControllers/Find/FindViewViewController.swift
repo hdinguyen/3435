@@ -106,7 +106,7 @@ class FindViewViewController: BaseViewController, UITableViewDelegate, UITableVi
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let arr:[String] = Array(self.dataSource.keys)
         let key:String = arr[indexPath.section]
-        let detail = DetailViewController(name: self.dataSource[key]![indexPath.row])
+        let detail = DetailViewController(name: self.dataSource[key]![indexPath.row], show_offer: true)
         self.navigationController?.pushViewController(detail, animated: true)
     }
 

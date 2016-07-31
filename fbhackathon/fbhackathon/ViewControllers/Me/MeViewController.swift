@@ -45,9 +45,10 @@ class MeViewController: UITabBarController {
         editButton.hidden = true
         
         logout.frame = CGRect(x: 5 , y: topView.frame.size.height - 40, width: 50, height: 30)
-        logout.setTitle("Logout", forState: .Normal)
+        logout.setImage(UIImage(named: "logout"), forState: .Normal)
         logout.setTitleColor(UIColor.colorWithHexString("007ffa"), forState: .Normal)
         logout.addTarget(self, action: #selector(MeViewController.logout(_:)), forControlEvents: .TouchUpInside)
+        logout.imageView!.contentMode = .ScaleAspectFit
         topView.addSubview(logout)
     }
     
