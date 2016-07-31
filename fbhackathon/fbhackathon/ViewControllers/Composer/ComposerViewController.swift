@@ -57,21 +57,15 @@ class ComposerViewController: BaseViewController, UITextViewDelegate, UINavigati
     }
     
     func selectCover() {
-        let action = UIAlertController(title: "pick image", message: nil, preferredStyle: .ActionSheet)
+        let action = UIAlertController(title: "Your skill category", message: nil, preferredStyle: .ActionSheet)
         
-        let optionCamera = UIAlertAction(title: "Camera", style: .Default) { (action) in
-            
-        }
-        
-        let optionPhoto = UIAlertAction(title: "Photo Library", style: .Default) { (action) in
-            
-        }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        
-        action.addAction(optionCamera)
-        action.addAction(optionPhoto)
-        action.addAction(cancel)
+//        for i:String in 
+//        
+//        let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+//        
+//        action.addAction(optionCamera)
+//        action.addAction(optionPhoto)
+//        action.addAction(cancel)
         
         self.presentViewController(action, animated: true, completion: nil)
     }
@@ -138,38 +132,6 @@ class ComposerViewController: BaseViewController, UITextViewDelegate, UINavigati
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
-    }
-    
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.row == 0 {
-            return 230
-        }
-        return composerHeight
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("author", forIndexPath: indexPath) as! AuthorTableViewCell
-            cell.load("abc", editMode: true, size: CGSize(width: tableView.frame.size.width, height: 230))
-            cell.selectionStyle = .None
-            return cell
-        }
-        let cell = tableView.dequeueReusableCellWithIdentifier("composer", forIndexPath: indexPath) as! DescriptionComposerTableViewCell
-        cell.selectionStyle = .None
-        cell.load(CGSize(width: tableView.frame.size.width, height: self.composerHeight + 10)) { (text, size) in
-            self.composerHeight = size.height
-            tableView.beginUpdates()
-            tableView.endUpdates()
-        }
-        return cell
     }
 
     /*

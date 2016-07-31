@@ -13,7 +13,8 @@ module.exports = function (sequelize, DataTypes) {
 		updated_at: DataTypes.DATE,
 		source: DataTypes.STRING,
 		email: DataTypes.STRING,
-		photo_url: DataTypes.STRING
+		photo_url: DataTypes.STRING,
+		identity: DataTypes.STRING
 	}, {
 		timestamps: false
 	}, {

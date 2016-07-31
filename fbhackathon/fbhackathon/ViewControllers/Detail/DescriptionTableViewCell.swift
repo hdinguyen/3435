@@ -25,7 +25,8 @@ class DescriptionTableViewCell: UITableViewCell {
     
     func load(data:String, size:CGSize) {
         if content == nil {
-            content = UILabel(frame: CGRect(origin: CGPoint(x: 0, y:0), size: size))
+            content = UILabel(frame: CGRect(x: 10, y: 5, width: size.width - 10, height: size.height-5))
+            content?.numberOfLines = 0
             self.addSubview(content!)
         }
         self.content?.text = data

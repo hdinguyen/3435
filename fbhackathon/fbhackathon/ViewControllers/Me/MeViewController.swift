@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import FBSDKLoginKit
 
 class MeViewController: UITabBarController {
 
     let topView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.mainScreen().bounds.width, height: 64))
     let editButton = UIButton(type: .Custom)
+    let logout = UIButton(type: .Custom)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,11 +43,31 @@ class MeViewController: UITabBarController {
         topView.addSubview(editButton)
         
         editButton.hidden = true
+        
+        logout.frame = CGRect(x: 5 , y: topView.frame.size.height - 40, width: 50, height: 30)
+        logout.setImage(UIImage(named: "logout"), forState: .Normal)
+        logout.setTitleColor(UIColor.colorWithHexString("007ffa"), forState: .Normal)
+        logout.addTarget(self, action: #selector(MeViewController.logout(_:)), forControlEvents: .TouchUpInside)
+        logout.imageView!.contentMode = .ScaleAspectFit
+        topView.addSubview(logout)
+    }
+    
+    func logout(sender:UIButton) {
+        let fbLoginManager = FBSDKLoginManager()
+        fbLoginManager.logOut()
+        sender.hidden = true
+        DataManager.shareInstance.clean("USER_ID")
+        let loginView = LoginViewController()
+        
+        self.presentViewController(UINavigationController(rootViewController: loginView), animated: true, completion: nil)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.topView.hidden = false
+        if FBSDKAccessToken.currentAccessToken() != nil {
+            logout.hidden = false
+        }
     }
     
     func editPressed() {

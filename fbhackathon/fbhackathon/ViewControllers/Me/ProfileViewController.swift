@@ -9,8 +9,8 @@
 import UIKit
 
 enum STATUS_SKILL:Int {
-    case MINE = 0
-    case LEARN = 1
+    case MINE = 1
+    case LEARN = 0
     case WISH_TO_LEARN = 2
 }
 
@@ -59,16 +59,29 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
         
-        skillSource.append(profileSkill(skillName: "Smoothy mix", status: .MINE))
-        skillSource.append(profileSkill(skillName: "Tollet cleanning", status: .MINE))
-        skillSource.append(profileSkill(skillName: "Oganami", status: .LEARN))
-        skillSource.append(profileSkill(skillName: "Catwalk model", status: .WISH_TO_LEARN))
-        skillSource.append(profileSkill(skillName: "Búng thun", status: .MINE))
-        skillSource.append(profileSkill(skillName: "Yoga", status: .LEARN))
+        APIClient.getRequest("users/\(DataManager.shareInstance.userId)/skills", complete: { (data, error) in
+            if error == nil {
+                let status = data!["fullname"] as! String
+                if status == "success" {
+                    let skills = data!["data"] as! [[String:AnyObject]]
+                    for i:[String:AnyObject] in skills {
+                        self.skillSource.append(profileSkill(skillName: i["details"] as! String, status: STATUS_SKILL(rawValue: (i["type"] as!NSNumber).integerValue)!))
+                    }
+                    tableView.reloadData()
+                }
+            }
+        })
         
-        dataSource.append(profileInfo(key: nil, value: nil))
-        dataSource.append(profileInfo(key: "Name", value: "Jennifer Lu"))
-        dataSource.append(profileInfo(key: "Email", value: "jen.lu@gmail.com"))
+        APIClient.getRequest("users/\(DataManager.shareInstance.userId)", complete: { (data, error) in
+            if error == nil {
+                let fullname = data!["fullname"] as! String
+                let email = data!["email"] as! String
+                self.dataSource.append(profileInfo(key: nil, value: nil))
+                self.dataSource.append(profileInfo(key: "Name", value: fullname))
+                self.dataSource.append(profileInfo(key: "Email", value: email))
+                tableView.reloadData()
+            }
+        })
         dataSource.append(profileInfo(key: "My Skills", value: "\(skillSource.count)"))
     }
     

@@ -25,11 +25,13 @@ class LoginViewController: BaseViewController, FBSDKLoginButtonDelegate {
         let tokenString = result.token.tokenString
         FBSDKGraphRequest(graphPath: "me", parameters: ["fields":"id,email,name,picture.width(480).height(480)"]).startWithCompletionHandler { (request, result, err) in
             let photo_url = ((result["picture"] as! [String:AnyObject])["data"] as! [String:AnyObject])["url"] as! String
+
             APIClient.postRequest("users/oauth/facebook", postData: ["token":tokenString, "email":result["email"] as! String, "photo_url":photo_url], complete: { (data, error) in
+                DataManager.shareInstance.userId = (data!["data"]!!["id"] as! NSNumber).stringValue
+                DataManager.shareInstance.wrtie("USER_ID", value: DataManager.shareInstance.userId)
                 let pick = PickingSkillViewController(isMine: false)
                 self.navigationController?.pushViewController(pick, animated: true)
             })
-            print(result)
         }
     }
     

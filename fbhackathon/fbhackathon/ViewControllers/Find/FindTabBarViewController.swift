@@ -13,6 +13,7 @@ class FindTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarItem.title = "Up"
+        self.tabBarItem.image = UIImage(named: "up")
         self.tabBar.hidden = true
     }
 
