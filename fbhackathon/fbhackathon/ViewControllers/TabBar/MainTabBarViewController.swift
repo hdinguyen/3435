@@ -15,6 +15,7 @@ class MainTabBarViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         (self.viewControllers![1] as! UITabBarController).tabBarItem.title = "Me"
+        (self.viewControllers![1] as! UITabBarController).tabBarItem.image = UIImage(named: "me")
     }
     
     override func viewDidAppear(animated: Bool) {

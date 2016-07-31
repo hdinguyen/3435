@@ -74,10 +74,18 @@ router.post('/oauth/facebook', function (req, res){
         console.log(fb_res? fb_res.error: 'error');
         return;
       }
+<<<<<<< HEAD
+      models.users.findOrCreate({
+        where: {
+          id: fb_res.id
+        }
+      }).spread(function(user, created)
+=======
 
       models.users.findOne(
         {where: {identity:fb_res.id}}
       ).then(function(user)
+>>>>>>> 1629b1580844c148444ed74c13d3ee2740ab7c93
       {
         if (!user){
           var new_user = models.users.build({identity: fb_res.id,
@@ -312,6 +320,5 @@ router.get('/:user_id/offers', function(req, res, next) {
     return offer;
   }
 });
-
 
 module.exports = router;
