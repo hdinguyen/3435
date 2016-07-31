@@ -64,7 +64,6 @@ router.post('/oauth/facebook', function (req, res){
         console.log(fb_res? fb_res.error: 'error');
         return;
       }
-
       models.users.findOrCreate({
         where: {
           id: fb_res.id
@@ -267,6 +266,5 @@ router.get('/:user_id/offers', function(req, res, next) {
     return dataValues;
   }
 });
-
 
 module.exports = router;
