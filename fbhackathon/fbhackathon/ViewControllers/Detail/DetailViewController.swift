@@ -69,10 +69,14 @@ class DetailViewController: BaseViewController, UITableViewDelegate, UITableView
         if indexPath.row == 0 {
             let authorCell = tableView.dequeueReusableCellWithIdentifier("author", forIndexPath: indexPath) as! AuthorTableViewCell
             authorCell.load(self.titleName, isOffer: self.show_offer, size: CGSize(width: tableView.frame.width, height: 230), handler: {
-                let alertController = UIAlertController(title: "Sent Offer", message: "Your offer was sent. Please wait", preferredStyle: UIAlertControllerStyle.Alert)
-                let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
-                alertController.addAction(action)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                if self.show_offer == true {
+                    let alertController = UIAlertController(title: "Sent Offer", message: "Your offer was sent. Please wait", preferredStyle: UIAlertControllerStyle.Alert)
+                    let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                    alertController.addAction(action)
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                } else {
+                    UIApplication.sharedApplication().openURL(NSURL(string: "https://m.me/giang.tranhoang")!)
+                }
             })
             return authorCell
         }

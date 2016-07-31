@@ -14,7 +14,10 @@ class LoginViewController: BaseViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let fbLogin = FBSDKLoginButton(frame: CGRect(x: 20, y: 50, width: 100, height: 50))
+        let bgImage = UIImageView(frame: self.view.bounds)
+        bgImage.image = UIImage(named: "splash")
+        self.view.addSubview(bgImage)
+        let fbLogin = FBSDKLoginButton(frame: CGRect(x: 20, y: self.view.frame.size.height - 50 - 100, width: self.view.frame.size.width - 40, height: 50))
         fbLogin.readPermissions = ["public_profile", "email"]
         fbLogin.delegate = self
         self.view.addSubview(fbLogin)

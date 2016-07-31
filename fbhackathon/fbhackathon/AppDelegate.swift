@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         self.registerForPushNotifications(application)
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        DataManager.shareInstance.userId = DataManager.shareInstance.read("USER_ID")
+        DataManager.shareInstance.userId = "89"//DataManager.shareInstance.read("USER_ID")
         return true
     }
     

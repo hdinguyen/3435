@@ -59,26 +59,27 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
         tableView.separatorStyle = .None
         self.view.addSubview(tableView)
         
+        self.dataSource.append(profileInfo(key: nil, value: nil))
+        self.dataSource.append(profileInfo(key: "My Skills", value: nil))
         APIClient.getRequest("users/\(DataManager.shareInstance.userId)/skills", complete: { (data, error) in
             if error == nil {
-                let status = data!["fullname"] as! String
-                if status == "success" {
-                    let skills = data!["data"] as! [[String:AnyObject]]
-                    for i:[String:AnyObject] in skills {
-                        self.skillSource.append(profileSkill(skillName: i["details"] as! String, status: STATUS_SKILL(rawValue: (i["type"] as!NSNumber).integerValue)!))
-                    }
-                    tableView.reloadData()
+                let skills = data!["data"] as! [[String:AnyObject]]
+                for i:[String:AnyObject] in skills {
+                    self.skillSource.append(profileSkill(skillName: i["details"] as! String, status: STATUS_SKILL(rawValue: (i["type"] as!NSNumber).integerValue)!))
                 }
+                tableView.reloadData()
             }
         })
         
         APIClient.getRequest("users/\(DataManager.shareInstance.userId)", complete: { (data, error) in
             if error == nil {
+                self.dataSource = [profileInfo]()
+//                self.dataSource.append(profileInfo(key: nil, value: nil))
                 let fullname = data!["fullname"] as! String
                 let email = data!["email"] as! String
-                self.dataSource.append(profileInfo(key: nil, value: nil))
                 self.dataSource.append(profileInfo(key: "Name", value: fullname))
                 self.dataSource.append(profileInfo(key: "Email", value: email))
+                self.dataSource.append(profileInfo(key: "My Skills", value: nil))
                 tableView.reloadData()
             }
         })
@@ -100,7 +101,7 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return self.dataSource.count + 2
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -121,7 +122,7 @@ class ProfileViewController: BaseViewController , UITableViewDelegate, UITableVi
         if indexPath.row < 4 {
             let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath)
             cell.selectionStyle = .None
-            cell.textLabel?.text = dataSource[indexPath.row].getContent()
+            cell.textLabel?.text = dataSource[indexPath.row - 1].getContent()
             return cell
         }
         

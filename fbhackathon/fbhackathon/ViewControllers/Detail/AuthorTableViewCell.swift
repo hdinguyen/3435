@@ -56,7 +56,7 @@ class AuthorTableViewCell: UITableViewCell {
             join?.layer.cornerRadius = 3
             join?.layer.borderColor = UIColor.redColor().CGColor
             join?.layer.borderWidth = 1
-            join?.backgroundColor = UIColor.colorWithHexString("434857cc")
+            join?.backgroundColor = UIColor.colorWithHexString("a0db8ecc")
             join?.addTarget(self, action: #selector(AuthorTableViewCell.sendOffer), forControlEvents: .TouchUpInside)
             if isOffer == true {
                 join?.setTitle("Offer", forState: .Normal)

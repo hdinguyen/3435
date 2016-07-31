@@ -68,20 +68,20 @@ class offer {
     var mentee_identity: String = ""
     
     init(offer:[String:AnyObject]) {
-        self.offer_id = (offer["id"] as! NSNumber).stringValue
-        self.program_id = (offer["program"]!["id"] as! NSNumber).stringValue
+//        self.offer_id = (offer["id"] as! NSNumber).stringValue
+//        self.program_id = (offer["program_id"] as! NSNumber).stringValue
         self.program_detail = offer["program"]!["details"] as! String
         self.program_title = offer["program"]!["title"] as! String
-        self.price = (offer["price"] as! NSNumber).stringValue
-        self.return_program_id = (offer["return_program"]!["id"] as! NSNumber).stringValue
-        self.return_program_detail = offer["return_program"]!["details"] as! String
-        self.return_program_title = offer["return_program"]!["title"] as! String
-        self.mentor_id = (offer["mentor_person"]!["id"] as! NSNumber).stringValue
-        self.mentee_id = (offer["mentee_person"]!["id"] as! NSNumber).stringValue
-        self.type = (offer["is_offline"] as! NSNumber).stringValue
-        self.status = offer["status"] as! String
-        self.mentor_identity = offer["mentor_person"]!["identity"] as! String
-        self.mentor_identity = offer["mentee_person"]!["identity"] as! String
+//        self.price = (offer["price"] as! NSNumber).stringValue
+//        self.return_program_id = (offer["return_program"]!["id"] as! NSNumber).stringValue
+//        self.return_program_detail = offer["return_program"]!["details"] as! String
+//        self.return_program_title = offer["return_program"]!["title"] as! String
+//        self.mentor_id = (offer["mentor_person"]!["id"] as! NSNumber).stringValue
+//        self.mentee_id = (offer["mentee_person"]!["id"] as! NSNumber).stringValue
+//        self.type = (offer["is_offline"] as! NSNumber).stringValue
+//        self.status = offer["status"] as! String
+//        self.mentor_identity = offer["mentor_person"]!["identity"] as! String
+//        self.mentor_identity = offer["mentee_person"]!["identity"] as! String
     }
 }
 
@@ -99,6 +99,12 @@ class CourseViewController: BaseViewController, UITableViewDelegate, UITableView
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        (self.tabBarController as! MeViewController).topView.hidden = false
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
@@ -109,15 +115,14 @@ class CourseViewController: BaseViewController, UITableViewDelegate, UITableView
         
         switch screenType {
         case .COURSE:
-            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/courses") { (data, error) in
+            APIClient.getRequest("users/89/courses") { (data, error) in
                 for i:[String:AnyObject] in data!["data"] as! [[String:AnyObject]] {
                     self.dataSource.append(course(data: i))
                 }
                 tableView.reloadData()
             }
         case .PROGRAM:
-            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/programs") { (data, error) in
-//            APIClient.getRequest("users/1/programs") { (data, error) in
+            APIClient.getRequest("users/89/programs") { (data, error) in
             
                 for i:[String:AnyObject] in data!["data"] as! [[String:AnyObject]] {
                     self.dataSource.append(program(data: i))
@@ -126,7 +131,8 @@ class CourseViewController: BaseViewController, UITableViewDelegate, UITableView
             }
             
         case .OFFER:
-            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/offers") { (data, error) in
+//            APIClient.getRequest("users/\(DataManager.shareInstance.userId)/offers") { (data, error) in
+            APIClient.getRequest("users/89/offers") { (data, error) in
                 for i:[String:AnyObject] in data!["data"] as! [[String:AnyObject]] {
                     self.dataSource.append(offer(offer: i))
                 }
@@ -169,6 +175,12 @@ class CourseViewController: BaseViewController, UITableViewDelegate, UITableView
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
+        (self.tabBarController as! MeViewController).topView.hidden = true
+        
+        let itemOffer = self.dataSource[indexPath.row] as! offer
+        let detailView = DetailViewController(name: itemOffer.program_title, show_offer: false)
+        self.navigationController?.pushViewController(detailView, animated: true)
     }
 
     override func didReceiveMemoryWarning() {
