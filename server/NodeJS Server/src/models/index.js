@@ -52,6 +52,8 @@ db.courses.belongsTo(db.offers, {as: 'offer', foreignKey: 'offer_id'});
 db.offers.hasMany(db.courses, {as: 'courses', foreignKey: 'offer_id'});
 db.courses.belongsTo(db.programs, {as: 'program', foreignKey: 'program_id'});
 db.programs.hasMany(db.courses, {as: 'courses', foreignKey:'program_id'});
+db.offers.belongsTo(db.users, {as: 'mentor_person', foreignKey: 'mentor'});
+db.offers.belongsTo(db.users, {as: 'mentee_person', foreignKey: 'mentee'});
 
 
 db.sequelize = sequelize;

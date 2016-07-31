@@ -1,6 +1,17 @@
 var models  = require('../models');
 var express = require('express');
 var router = express.Router();
+var categories_map = {};
+models.categories.findAll({
+    attributes : ['id', 'title']
+}).then(function (data){
+    data.forEach(function(element) {
+        categories_map["k" + element.id] = element.title;
+    }, this);
+});
+
+
+
 
 /* Create program */
 router.post('/', function(req, res, next) {
@@ -233,4 +244,53 @@ router.post('/:program_id/offer', function(req, res, next) {
     });
 
 });
+
+
+/* Create program */
+router.get('/best', function(req, res, next) {
+    var user_id = req.query.user_id;
+    var type = req.query.type;
+    var magic_query = "(select GROUP_CONCAT(id) FROM (select a.user_id as id ,sum(case " +
+        "when ifnull(a.tag1,-2) = ifnull(b.tag1,-1) and ifnull(a.tag2,-2) <> ifnull(b.tag2,-1) " +
+        "then 1/3 when ifnull(a.tag1,-2) = ifnull(b.tag1,-1) and ifnull(a.tag2,-2) = ifnull(b.tag2,-1) " +
+        "and ifnull(a.tag3,-2) <> ifnull(b.tag3,-1) then 2/3 when ifnull(a.tag1,-2) = ifnull(b.tag1,-1) " +
+        " and ifnull(a.tag2,-2) = ifnull(b.tag2,-1) and ifnull(a.tag3,-2) = ifnull(b.tag3,-1) then 1 " +
+        "else 0 end ) as MatchPoint from user_skills as a join user_skills as b on a.user_id <> b.user_id " +
+        "where b.user_id = :qID and ((b.type = 2 and a.type <> 2) or (b.type <> 2 and a.type = 2)) " +
+        "group by a.user_id order by MatchPoint Desc ) as best ) ";
+    magic_query = magic_query.replace(":qID", ""+user_id);
+
+
+    console.log(magic_query);
+    var where_clause = {};
+    if (type) {
+        where_clause.type = type;
+    }
+    models.programs.findAll({
+        where: {},
+        include: [
+            {
+                model: models.user_skills, as: 'user_skill', where: where_clause, required: true
+            }
+        ],
+        order: "FIELD('user_id', :magic)".replace(':magic', magic_query)
+    }).then(function (programs){
+          res.end(JSON.stringify({status: 'success', data: programs.map(parse_program)}));
+      }
+    );
+
+    function parse_program(program){
+        var dataValues = program.dataValues;
+        ["user_id","details", "tag1","tag2", "tag3", "tag4", "tag5","level", "type"].forEach(function(key){
+            if(key.indexOf('tag') >= 0)
+            {
+                if(categories_map["k"+program.user_skill[key]])
+                    dataValues.user_skill[key] = categories_map["k"+program.user_skill[key]];
+            }
+        });
+        return dataValues;
+    }
+});
+
+
 module.exports = router;
